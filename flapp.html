@@ -41,10 +41,10 @@
     let topPipeImg = new Image();
     let bottomPipeImg = new Image();
 
-    background.src = "assets/flappybirdbg.png";
-    bird.image.src = "assets/flappybird.png";
-    topPipeImg.src = "assets/toppipe.png";
-    bottomPipeImg.src = "assets/bottompipe.png";
+    background.src = "flappybirdbg.png";
+    bird.image.src = "flappybird.png";
+    topPipeImg.src = "toppipe.png";
+    bottomPipeImg.src = "bottompipe.png";
 
     function draw() {
       ctx.drawImage(background, 0, 0, GAME_WIDTH, GAME_HEIGHT);
@@ -154,4 +154,5 @@
     gameLoop();
   </script>
 </body>
+
 </html>
