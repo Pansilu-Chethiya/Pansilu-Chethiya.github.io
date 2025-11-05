@@ -2,65 +2,65 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pansilu Chethiya | Portfolio</title>
+  <title>Pansilu Chethiya | Flappy Bird</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     :root {
-      --bg-color: #0d1117;
-      --card-bg: #161b22;
-      --text-light: #f0f6fc;
-      --text-muted: #8b949e;
+      --bg: #0d1117;
+      --card: #161b22;
+      --text: #f0f6fc;
+      --muted: #8b949e;
       --accent: #00aaff;
       --transition: 0.3s ease;
     }
 
-    .light {
-      --bg-color: #f6f8fa;
-      --card-bg: #ffffff;
-      --text-light: #1b1f23;
-      --text-muted: #4a5568;
+    body.light {
+      --bg: #f6f8fa;
+      --card: #ffffff;
+      --text: #1b1f23;
+      --muted: #4a5568;
       --accent: #0077ff;
     }
 
     body {
       font-family: "Poppins", sans-serif;
-      background: var(--bg-color);
-      color: var(--text-light);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 100vh;
       overflow-x: hidden;
       transition: background var(--transition), color var(--transition);
     }
 
     header {
-      width: 100%;
-      max-width: 1200px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 2rem 1.5rem;
+      width: 100%;
+      max-width: 1100px;
+      padding: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
-    header h1 {
-      font-size: 1.8rem;
-      color: var(--accent);
-    }
+    header h1 { color: var(--accent); font-size: 1.8rem; }
 
     nav a {
-      color: var(--text-muted);
+      color: var(--muted);
       text-decoration: none;
-      margin-left: 1.5rem;
       transition: var(--transition);
+      font-size: 1rem;
+      margin-left: 1rem;
     }
-
     nav a:hover { color: var(--accent); }
 
     .theme-toggle {
-      background: var(--card-bg);
+      background: var(--card);
       color: var(--accent);
       border: 1px solid var(--accent);
       border-radius: 50%;
@@ -69,95 +69,69 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
       cursor: pointer;
       transition: var(--transition);
     }
-    .theme-toggle:hover { background: var(--accent); color: white; transform: rotate(20deg); }
+    .theme-toggle:hover { background: var(--accent); color: #fff; }
 
     .hero {
       text-align: center;
-      padding: 6rem 2rem 4rem;
+      padding: 4rem 1.5rem;
       max-width: 800px;
-      animation: fadeIn 1s ease;
     }
-
-    .hero h2 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    .hero p {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 2rem;
-    }
-
+    .hero h2 { font-size: clamp(1.8rem, 5vw, 2.5rem); margin-bottom: 0.5rem; }
+    .hero p { color: var(--muted); font-size: 1rem; margin-bottom: 2rem; line-height: 1.5; }
     .hero button {
       padding: 0.8rem 2rem;
       background: var(--accent);
+      color: #fff;
       border: none;
-      color: white;
-      font-size: 1rem;
       border-radius: 8px;
       cursor: pointer;
+      font-size: 1rem;
       transition: var(--transition);
     }
     .hero button:hover { background: #0088cc; transform: translateY(-3px); }
 
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      width: 100%;
-      max-width: 1000px;
-      padding: 2rem;
-    }
-
-    .project-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 1.5rem;
-      transition: var(--transition);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-
-    .project-card:hover {
-      transform: translateY(-5px);
-      border: 1px solid var(--accent);
-    }
-
-    .project-card h3 { color: var(--accent); margin-bottom: 0.5rem; }
-    .project-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
-
     .game-section {
       text-align: center;
       padding: 3rem 1rem;
+      width: 100%;
+      max-width: 1000px;
     }
-
     .game-section h2 {
       color: var(--accent);
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+    }
+
+    .game-wrapper {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      overflow: hidden;
     }
 
     canvas {
       border: 3px solid var(--accent);
       border-radius: 12px;
-      background: #4ec0ca;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      background: #000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      max-width: 100%;
+      height: auto;
     }
 
     .contact {
       text-align: center;
-      margin: 4rem 0 2rem;
-      max-width: 700px;
-      padding: 0 1rem;
+      padding: 4rem 1.5rem;
     }
-
     .contact h2 { color: var(--accent); margin-bottom: 1rem; }
-    .contact p { color: var(--text-muted); margin-bottom: 1.5rem; }
-
+    .contact p { color: var(--muted); margin-bottom: 1.5rem; }
     .contact a {
-      color: white;
+      display: inline-block;
       background: var(--accent);
-      padding: 0.7rem 1.5rem;
+      color: white;
+      padding: 0.8rem 1.6rem;
       border-radius: 8px;
       text-decoration: none;
       transition: var(--transition);
@@ -165,31 +139,19 @@
     .contact a:hover { background: #0088cc; }
 
     footer {
-      color: var(--text-muted);
+      text-align: center;
+      color: var(--muted);
       font-size: 0.9rem;
       padding: 1rem;
-      text-align: center;
-      border-top: 1px solid #222;
       width: 100%;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 600px) {
-      header { flex-direction: column; gap: 1rem; }
-      .hero h2 { font-size: 2rem; }
-      .hero p { font-size: 1rem; }
     }
   </style>
 </head>
+
 <body>
   <header>
     <h1>Pansilu Chethiya</h1>
     <nav>
-      <a href="#projects">Projects</a>
       <a href="#game">Game</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -197,142 +159,129 @@
   </header>
 
   <section class="hero">
-    <h2>Hi, I'm Pansilu 👋</h2>
-    <p>I'm a creative developer who builds interactive apps, games, and visually stunning experiences using Python, JavaScript, and C++. I love turning ideas into beautiful, functional code.</p>
-    <button onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
-      View My Work
-    </button>
-  </section>
-
-  <section id="projects" class="projects">
-    <div class="project-card">
-      <h3>Flappy Bird Clone</h3>
-      <p>A faithful recreation of Flappy Bird using Python and JavaScript — simple, fast, and fun!</p>
-    </div>
-    <div class="project-card">
-      <h3>To-Do List App</h3>
-      <p>Organize your day with a clean Tkinter-powered app featuring priorities, due dates, and persistence.</p>
-    </div>
-    <div class="project-card">
-      <h3>Space Shooter</h3>
-      <p>A 2D shooter game built with JavaScript Canvas — dodging asteroids and blasting enemies never looked smoother.</p>
-    </div>
+    <h2>Flappy Bird Clone 🐤</h2>
+    <p>A sleek, responsive recreation of Flappy Bird built with HTML5 Canvas and JavaScript. Works beautifully on both desktop and mobile — tap or press Space to flap!</p>
+    <button onclick="document.getElementById('game').scrollIntoView({behavior:'smooth'})">Play Now</button>
   </section>
 
   <section id="game" class="game-section">
-    <h2>🎮 Play My Flappy Bird Game</h2>
-    <canvas id="gameCanvas" width="360" height="640"></canvas>
+    <h2>🎮 Play the Game</h2>
+    <div class="game-wrapper">
+      <canvas id="gameCanvas" width="400" height="650"></canvas>
+    </div>
   </section>
 
   <section id="contact" class="contact">
     <h2>Let's Connect</h2>
-    <p>If you'd like to collaborate, discuss a project, or just say hi — feel free to reach out!</p>
+    <p>Have feedback or want to collaborate on a project? Get in touch!</p>
     <a href="mailto:pansilu@example.com">📧 Email Me</a>
   </section>
 
-  <footer>
-    &copy; 2025 Pansilu Chethiya. All rights reserved.
-  </footer>
+  <footer>© 2025 Pansilu Chethiya</footer>
 
   <script>
-    // ===== THEME TOGGLE =====
-    const toggle = document.getElementById('themeToggle');
+    // === THEME TOGGLE ===
+    const toggle = document.getElementById("themeToggle");
     const body = document.body;
-    if (localStorage.getItem('theme') === 'light') {
-      body.classList.add('light');
-      toggle.textContent = '💡';
+    if (localStorage.getItem("theme") === "light") {
+      body.classList.add("light");
+      toggle.textContent = "💡";
     }
-    toggle.addEventListener('click', () => {
-      body.classList.toggle('light');
-      const isLight = body.classList.contains('light');
-      toggle.textContent = isLight ? '💡' : '🌙';
-      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    toggle.addEventListener("click", () => {
+      body.classList.toggle("light");
+      const isLight = body.classList.contains("light");
+      toggle.textContent = isLight ? "💡" : "🌙";
+      localStorage.setItem("theme", isLight ? "light" : "dark");
     });
 
-    // ===== FLAPPY BIRD GAME =====
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
-    const GAME_WIDTH = 360, GAME_HEIGHT = 640;
-    const PIPE_WIDTH = 64, PIPE_HEIGHT = 512, BIRD_WIDTH = 34, BIRD_HEIGHT = 24;
+    // === FLAPPY BIRD GAME ===
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
 
-    const birdImg = new Image(), bgImg = new Image(), topPipeImg = new Image(), bottomPipeImg = new Image();
-    birdImg.src = 'flappybird.png';
-    bgImg.src = 'flappybirdbg.png';
-    topPipeImg.src = 'toppipe.png';
-    bottomPipeImg.src = 'bottompipe.png';
+    function resizeCanvas() {
+      const scale = Math.min(window.innerWidth / 400, 1);
+      canvas.style.width = 400 * scale + "px";
+      canvas.style.height = 650 * scale + "px";
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
 
-    let bird = { x: GAME_WIDTH/8, y: GAME_HEIGHT/2, w: BIRD_WIDTH, h: BIRD_HEIGHT, vY: 0 };
+    const GAME_WIDTH = 400, GAME_HEIGHT = 650;
+    const birdWidth = 34, birdHeight = 24, pipeWidth = 64, pipeHeight = 512;
+    let bird = { x: GAME_WIDTH/8, y: GAME_HEIGHT/2, width: birdWidth, height: birdHeight, velocityY: 0, image: new Image() };
     let pipes = [];
     let gravity = 0.4, velocityX = -2, score = 0, gameOver = false;
 
+    const background = new Image(), topPipeImg = new Image(), bottomPipeImg = new Image();
+    background.src = "flappybirdbg.png";
+    bird.image.src = "flappybird.png";
+    topPipeImg.src = "toppipe.png";
+    bottomPipeImg.src = "bottompipe.png";
+
+    function draw() {
+      ctx.drawImage(background, 0, 0, GAME_WIDTH, GAME_HEIGHT);
+      ctx.drawImage(bird.image, bird.x, bird.y, bird.width, bird.height);
+      for (let pipe of pipes) ctx.drawImage(pipe.image, pipe.x, pipe.y, pipeWidth, pipeHeight);
+      ctx.fillStyle = "white";
+      ctx.font = "40px Comic Sans MS";
+      ctx.fillText(Math.floor(score), 5, 40);
+      if (gameOver) {
+        ctx.fillStyle = "red";
+        ctx.font = "50px Comic Sans MS";
+        ctx.textAlign = "center";
+        ctx.fillText(`Game Over: ${Math.floor(score)}`, GAME_WIDTH/2, GAME_HEIGHT/2);
+        ctx.fillStyle = "white";
+        ctx.font = "22px Comic Sans MS";
+        ctx.fillText("Tap / w to restart", GAME_WIDTH/2, GAME_HEIGHT/2 + 48);
+        ctx.textAlign = "left";
+      }
+    }
+
+    function move() {
+      bird.velocityY += gravity;
+      bird.y += bird.velocityY;
+      bird.y = Math.max(bird.y, 0);
+      if (bird.y > GAME_HEIGHT) gameOver = true;
+      for (let pipe of pipes) {
+        pipe.x += velocityX;
+        if (!pipe.passed && bird.x > pipe.x + pipeWidth) { score += 0.5; pipe.passed = true; }
+        if (bird.x < pipe.x + pipeWidth && bird.x + bird.width > pipe.x &&
+            bird.y < pipe.y + pipeHeight && bird.y + bird.height > pipe.y) {
+          gameOver = true; return;
+        }
+      }
+      pipes = pipes.filter(p => p.x > -pipeWidth);
+    }
+
     function createPipe() {
-      const randomY = -PIPE_HEIGHT/4 - Math.random()*(PIPE_HEIGHT/2);
+      const randomY = -pipeHeight/4 - Math.random()*(pipeHeight/2);
       const gap = GAME_HEIGHT/4;
-      const top = { x: GAME_WIDTH, y: randomY, w: PIPE_WIDTH, h: PIPE_HEIGHT, img: topPipeImg, passed: false };
-      const bottom = { x: GAME_WIDTH, y: randomY + PIPE_HEIGHT + gap, w: PIPE_WIDTH, h: PIPE_HEIGHT, img: bottomPipeImg, passed: false };
-      pipes.push(top, bottom);
+      pipes.push({ x: GAME_WIDTH, y: randomY, image: topPipeImg, passed: false });
+      pipes.push({ x: GAME_WIDTH, y: randomY + pipeHeight + gap, image: bottomPipeImg, passed: false });
     }
 
     function resetGame() {
-      bird.y = GAME_HEIGHT/2;
-      bird.vY = 0;
-      pipes = [];
-      score = 0;
-      gameOver = false;
+      bird.x = GAME_WIDTH/8; bird.y = GAME_HEIGHT/2; bird.velocityY = 0;
+      pipes = []; score = 0; gameOver = false;
     }
 
-    function collide(a,b){
-      return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
-    }
+    document.addEventListener("keydown", e => {
+      if (!gameOver && [ "ArrowUp", "w"].includes(e.key)) bird.velocityY = -6;
+      else if (gameOver && e.key === "w") resetGame();
+    });
 
-    function update() {
-      if (gameOver) return;
-      bird.vY += gravity;
-      bird.y += bird.vY;
-      if (bird.y > GAME_HEIGHT || bird.y < 0) gameOver = true;
-
-      for (let p of pipes) {
-        p.x += velocityX;
-        if (!p.passed && bird.x > p.x + p.w) { score += 0.5; p.passed = true; }
-        if (collide(bird, p)) gameOver = true;
-      }
-      if (pipes.length && pipes[0].x < -PIPE_WIDTH) pipes.splice(0, 2);
-    }
-
-    function draw() {
-      ctx.drawImage(bgImg, 0, 0, GAME_WIDTH, GAME_HEIGHT);
-      ctx.drawImage(birdImg, bird.x, bird.y, bird.w, bird.h);
-      pipes.forEach(p => ctx.drawImage(p.img, p.x, p.y, p.w, p.h));
-
-      ctx.fillStyle = 'white';
-      ctx.font = '40px Comic Sans MS';
-      ctx.fillText(Math.floor(score), 10, 50);
-
-      if (gameOver) {
-        ctx.fillStyle = 'red';
-        ctx.font = '45px Comic Sans MS';
-        ctx.textAlign = 'center';
-        ctx.fillText(`Game Over: ${Math.floor(score)}`, GAME_WIDTH/2, GAME_HEIGHT/2);
-        ctx.font = '22px Comic Sans MS';
-        ctx.fillStyle = 'white';
-        ctx.fillText('Press w to Restart', GAME_WIDTH/2, GAME_HEIGHT/2 + 50);
-        ctx.textAlign = 'left';
-      }
-    }
-
-    function loop() {
-      update();
-      draw();
-      requestAnimationFrame(loop);
-    }
+    canvas.addEventListener("touchstart", () => {
+      if (!gameOver) bird.velocityY = -6;
+      else resetGame();
+    });
 
     setInterval(() => { if (!gameOver) createPipe(); }, 1500);
 
-    document.addEventListener('keydown', e => {
-      if (!gameOver && ['ArrowUp', 'w', 'W'].includes(e.key)) bird.vY = -6;
-      else if (gameOver && e.key === 'w') resetGame();
-    });
-
+    function loop() {
+      if (!gameOver) move();
+      draw();
+      requestAnimationFrame(loop);
+    }
     loop();
   </script>
 </body>
