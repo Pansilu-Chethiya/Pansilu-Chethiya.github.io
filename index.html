@@ -315,7 +315,7 @@
         ctx.fillText(`Game Over: ${Math.floor(score)}`, GAME_WIDTH/2, GAME_HEIGHT/2);
         ctx.font = '22px Comic Sans MS';
         ctx.fillStyle = 'white';
-        ctx.fillText('Press Space to Restart', GAME_WIDTH/2, GAME_HEIGHT/2 + 50);
+        ctx.fillText('Press w to Restart', GAME_WIDTH/2, GAME_HEIGHT/2 + 50);
         ctx.textAlign = 'left';
       }
     }
@@ -329,8 +329,8 @@
     setInterval(() => { if (!gameOver) createPipe(); }, 1500);
 
     document.addEventListener('keydown', e => {
-      if (!gameOver && [' ', 'ArrowUp', 'w', 'W'].includes(e.key)) bird.vY = -6;
-      else if (gameOver && e.key === ' ') resetGame();
+      if (!gameOver && ['ArrowUp', 'w', 'W'].includes(e.key)) bird.vY = -6;
+      else if (gameOver && e.key === 'w') resetGame();
     });
 
     loop();
