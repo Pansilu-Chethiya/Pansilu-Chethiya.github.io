@@ -47,16 +47,16 @@ pygame.time.set_timer(create_pipes_timer, 1500)  # every 1.5 seconds
 
 
 # game images
-background_image = pygame.image.load("assets/flappybirdbg.png")
+background_image = pygame.image.load("flappybirdbg.png")
 
-bird_image = pygame.image.load("assets/flappybird.png")
+bird_image = pygame.image.load("flappybird.png")
 bird_image = pygame.transform.scale(bird_image, (bird_width, bird_height))
 
-top_pipe_image = pygame.image.load("assets/toppipe.png")
+top_pipe_image = pygame.image.load("toppipe.png")
 top_pipe_image = pygame.transform.scale(
     top_pipe_image, (pipe_width, pipe_height))
 
-bottom_pipe_image = pygame.image.load("assets/bottompipe.png")
+bottom_pipe_image = pygame.image.load("bottompipe.png")
 bottom_pipe_image = pygame.transform.scale(
     bottom_pipe_image, (pipe_width, pipe_height))
 
@@ -177,3 +177,4 @@ while True:
     draw()
     pygame.display.update()
     clock.tick(60)  # fps
+
