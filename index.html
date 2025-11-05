@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pansilu Chethiya | Portfolio</title>
   <style>
-    /* ====== RESET ====== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
@@ -17,7 +16,6 @@
       --transition: 0.3s ease;
     }
 
-    /* ====== LIGHT THEME VARIABLES ====== */
     .light {
       --bg-color: #f6f8fa;
       --card-bg: #ffffff;
@@ -45,13 +43,11 @@
       justify-content: space-between;
       align-items: center;
       padding: 2rem 1.5rem;
-      transition: var(--transition);
     }
 
     header h1 {
       font-size: 1.8rem;
       color: var(--accent);
-      letter-spacing: 1px;
     }
 
     nav a {
@@ -61,11 +57,8 @@
       transition: var(--transition);
     }
 
-    nav a:hover {
-      color: var(--accent);
-    }
+    nav a:hover { color: var(--accent); }
 
-    /* ====== THEME TOGGLE BUTTON ====== */
     .theme-toggle {
       background: var(--card-bg);
       color: var(--accent);
@@ -80,14 +73,8 @@
       cursor: pointer;
       transition: var(--transition);
     }
+    .theme-toggle:hover { background: var(--accent); color: white; transform: rotate(20deg); }
 
-    .theme-toggle:hover {
-      background: var(--accent);
-      color: white;
-      transform: rotate(20deg);
-    }
-
-    /* ====== HERO ====== */
     .hero {
       text-align: center;
       padding: 6rem 2rem 4rem;
@@ -95,11 +82,7 @@
       animation: fadeIn 1s ease;
     }
 
-    .hero h2 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-
+    .hero h2 { font-size: 2.5rem; margin-bottom: 0.5rem; }
     .hero p {
       font-size: 1.1rem;
       color: var(--text-muted);
@@ -117,13 +100,8 @@
       cursor: pointer;
       transition: var(--transition);
     }
+    .hero button:hover { background: #0088cc; transform: translateY(-3px); }
 
-    .hero button:hover {
-      background: #0088cc;
-      transform: translateY(-3px);
-    }
-
-    /* ====== PROJECTS ====== */
     .projects {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -146,18 +124,26 @@
       border: 1px solid var(--accent);
     }
 
-    .project-card h3 {
+    .project-card h3 { color: var(--accent); margin-bottom: 0.5rem; }
+    .project-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
+
+    .game-section {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    .game-section h2 {
       color: var(--accent);
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
     }
 
-    .project-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.5;
+    canvas {
+      border: 3px solid var(--accent);
+      border-radius: 12px;
+      background: #4ec0ca;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
 
-    /* ====== CONTACT ====== */
     .contact {
       text-align: center;
       margin: 4rem 0 2rem;
@@ -165,15 +151,8 @@
       padding: 0 1rem;
     }
 
-    .contact h2 {
-      color: var(--accent);
-      margin-bottom: 1rem;
-    }
-
-    .contact p {
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-    }
+    .contact h2 { color: var(--accent); margin-bottom: 1rem; }
+    .contact p { color: var(--text-muted); margin-bottom: 1.5rem; }
 
     .contact a {
       color: white;
@@ -183,10 +162,7 @@
       text-decoration: none;
       transition: var(--transition);
     }
-
-    .contact a:hover {
-      background: #0088cc;
-    }
+    .contact a:hover { background: #0088cc; }
 
     footer {
       color: var(--text-muted);
@@ -202,12 +178,8 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ====== RESPONSIVE ====== */
     @media (max-width: 600px) {
-      header {
-        flex-direction: column;
-        gap: 1rem;
-      }
+      header { flex-direction: column; gap: 1rem; }
       .hero h2 { font-size: 2rem; }
       .hero p { font-size: 1rem; }
     }
@@ -218,6 +190,7 @@
     <h1>Pansilu Chethiya</h1>
     <nav>
       <a href="#projects">Projects</a>
+      <a href="#game">Game</a>
       <a href="#contact">Contact</a>
     </nav>
     <button class="theme-toggle" id="themeToggle">🌙</button>
@@ -225,7 +198,7 @@
 
   <section class="hero">
     <h2>Hi, I'm Pansilu 👋</h2>
-    <p>I'm a creative developer passionate about building interactive apps, games, and beautiful user interfaces with Python, JavaScript, and C++. I love merging design and logic to craft elegant digital experiences.</p>
+    <p>I'm a creative developer who builds interactive apps, games, and visually stunning experiences using Python, JavaScript, and C++. I love turning ideas into beautiful, functional code.</p>
     <button onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
       View My Work
     </button>
@@ -234,24 +207,27 @@
   <section id="projects" class="projects">
     <div class="project-card">
       <h3>Flappy Bird Clone</h3>
-      <p>A full Flappy Bird recreation in Python (Pygame) with smooth animations, dynamic pipes, and collision detection.</p>
+      <p>A faithful recreation of Flappy Bird using Python and JavaScript — simple, fast, and fun!</p>
     </div>
-
     <div class="project-card">
       <h3>To-Do List App</h3>
-      <p>A productivity app made in Tkinter featuring task management, filters, and persistent JSON storage.</p>
+      <p>Organize your day with a clean Tkinter-powered app featuring priorities, due dates, and persistence.</p>
     </div>
-
     <div class="project-card">
       <h3>Space Shooter</h3>
-      <p>A JavaScript-based 2D space shooter using Canvas API, complete with enemies, power-ups, and sound effects.</p>
+      <p>A 2D shooter game built with JavaScript Canvas — dodging asteroids and blasting enemies never looked smoother.</p>
     </div>
+  </section>
+
+  <section id="game" class="game-section">
+    <h2>🎮 Play My Flappy Bird Game</h2>
+    <canvas id="gameCanvas" width="360" height="640"></canvas>
   </section>
 
   <section id="contact" class="contact">
     <h2>Let's Connect</h2>
     <p>If you'd like to collaborate, discuss a project, or just say hi — feel free to reach out!</p>
-    <a href="mailto:pansiluchethiya2012@outlook.com"> Email Me</a>
+    <a href="mailto:pansilu@example.com">📧 Email Me</a>
   </section>
 
   <footer>
@@ -259,22 +235,105 @@
   </footer>
 
   <script>
-    // ====== THEME TOGGLE ======
+    // ===== THEME TOGGLE =====
     const toggle = document.getElementById('themeToggle');
     const body = document.body;
-
-    // Load saved theme if available
     if (localStorage.getItem('theme') === 'light') {
       body.classList.add('light');
       toggle.textContent = '💡';
     }
-
     toggle.addEventListener('click', () => {
       body.classList.toggle('light');
       const isLight = body.classList.contains('light');
       toggle.textContent = isLight ? '💡' : '🌙';
       localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
+
+    // ===== FLAPPY BIRD GAME =====
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const GAME_WIDTH = 360, GAME_HEIGHT = 640;
+    const PIPE_WIDTH = 64, PIPE_HEIGHT = 512, BIRD_WIDTH = 34, BIRD_HEIGHT = 24;
+
+    const birdImg = new Image(), bgImg = new Image(), topPipeImg = new Image(), bottomPipeImg = new Image();
+    birdImg.src = 'assets/flappybird.png';
+    bgImg.src = 'assets/flappybirdbg.png';
+    topPipeImg.src = 'assets/toppipe.png';
+    bottomPipeImg.src = 'assets/bottompipe.png';
+
+    let bird = { x: GAME_WIDTH/8, y: GAME_HEIGHT/2, w: BIRD_WIDTH, h: BIRD_HEIGHT, vY: 0 };
+    let pipes = [];
+    let gravity = 0.4, velocityX = -2, score = 0, gameOver = false;
+
+    function createPipe() {
+      const randomY = -PIPE_HEIGHT/4 - Math.random()*(PIPE_HEIGHT/2);
+      const gap = GAME_HEIGHT/4;
+      const top = { x: GAME_WIDTH, y: randomY, w: PIPE_WIDTH, h: PIPE_HEIGHT, img: topPipeImg, passed: false };
+      const bottom = { x: GAME_WIDTH, y: randomY + PIPE_HEIGHT + gap, w: PIPE_WIDTH, h: PIPE_HEIGHT, img: bottomPipeImg, passed: false };
+      pipes.push(top, bottom);
+    }
+
+    function resetGame() {
+      bird.y = GAME_HEIGHT/2;
+      bird.vY = 0;
+      pipes = [];
+      score = 0;
+      gameOver = false;
+    }
+
+    function collide(a,b){
+      return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+    }
+
+    function update() {
+      if (gameOver) return;
+      bird.vY += gravity;
+      bird.y += bird.vY;
+      if (bird.y > GAME_HEIGHT || bird.y < 0) gameOver = true;
+
+      for (let p of pipes) {
+        p.x += velocityX;
+        if (!p.passed && bird.x > p.x + p.w) { score += 0.5; p.passed = true; }
+        if (collide(bird, p)) gameOver = true;
+      }
+      if (pipes.length && pipes[0].x < -PIPE_WIDTH) pipes.splice(0, 2);
+    }
+
+    function draw() {
+      ctx.drawImage(bgImg, 0, 0, GAME_WIDTH, GAME_HEIGHT);
+      ctx.drawImage(birdImg, bird.x, bird.y, bird.w, bird.h);
+      pipes.forEach(p => ctx.drawImage(p.img, p.x, p.y, p.w, p.h));
+
+      ctx.fillStyle = 'white';
+      ctx.font = '40px Comic Sans MS';
+      ctx.fillText(Math.floor(score), 10, 50);
+
+      if (gameOver) {
+        ctx.fillStyle = 'red';
+        ctx.font = '45px Comic Sans MS';
+        ctx.textAlign = 'center';
+        ctx.fillText(`Game Over: ${Math.floor(score)}`, GAME_WIDTH/2, GAME_HEIGHT/2);
+        ctx.font = '22px Comic Sans MS';
+        ctx.fillStyle = 'white';
+        ctx.fillText('Press Space to Restart', GAME_WIDTH/2, GAME_HEIGHT/2 + 50);
+        ctx.textAlign = 'left';
+      }
+    }
+
+    function loop() {
+      update();
+      draw();
+      requestAnimationFrame(loop);
+    }
+
+    setInterval(() => { if (!gameOver) createPipe(); }, 1500);
+
+    document.addEventListener('keydown', e => {
+      if (!gameOver && [' ', 'ArrowUp', 'w', 'W'].includes(e.key)) bird.vY = -6;
+      else if (gameOver && e.key === ' ') resetGame();
+    });
+
+    loop();
   </script>
 </body>
 </html>
