@@ -2,241 +2,139 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Pansilu Chethiya | 😊</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pansilu Chethiya | Flappy Bird Clone</title>
 
-  <!-- Highlight.js styles (only stylesheet here; init runs after DOM) -->
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-
+  <!-- 🎨 Style -->
   <style>
-    /* --- base / vars --- */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    :root {
-      --bg: #0d1117;
-      --card: #161b22;
-      --text: #f0f6fc;
-      --muted: #8b949e;
-      --accent: #00aaff;
-      --transition: 0.3s ease;
-    }
-
-    body.light {
-      --bg: #f6f8fa;
-      --card: #ffffff;
-      --text: #1b1f23;
-      --muted: #4a5568;
-      --accent: #0077ff;
-    }
-
     body {
       font-family: "Poppins", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      overflow-x: hidden;
-      transition: background var(--transition), color var(--transition);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    /* --- header / nav --- */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      max-width: 1100px;
-      padding: 1.5rem;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    header h1 { color: var(--accent); font-size: 1.8rem; }
-    nav a {
-      color: var(--muted);
-      text-decoration: none;
-      transition: var(--transition);
-      font-size: 1rem;
-      margin-left: 1rem;
-    }
-    nav a:hover { color: var(--accent); }
-
-    .theme-toggle {
-      background: var(--card);
-      color: var(--accent);
-      border: 1px solid var(--accent);
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .theme-toggle:hover { background: var(--accent); color: #fff; }
-
-    /* --- hero / game --- */
-    .hero {
+      background: radial-gradient(circle at top, #20232a, #0e0f12);
+      color: #fff;
+      margin: 0;
       text-align: center;
-      padding: 4rem 1.5rem;
-      max-width: 800px;
+      overflow-x: hidden;
     }
-    .hero h2 { font-size: clamp(1.8rem, 5vw, 2.5rem); margin-bottom: 0.5rem; }
-    .hero p { color: var(--muted); font-size: 1rem; margin-bottom: 2rem; line-height: 1.5; }
-    .hero button {
-      padding: 0.8rem 2rem; background: var(--accent); color: #fff; border: none; border-radius: 8px;
-      cursor: pointer; font-size: 1rem; transition: var(--transition);
+    h1 {
+      margin-top: 1.5rem;
+      font-size: 1.8rem;
+      color: #ffd166;
     }
-    .hero button:hover { background: #0088cc; transform: translateY(-3px); }
-
-    .game-section {
-      text-align: center; padding: 3rem 1rem; width: 100%; max-width: 1000px;
+    p {
+      color: #ccc;
+      margin-bottom: 1.5rem;
     }
-    .game-section h2 {
-      color: var(--accent); margin-bottom: 1.2rem; font-size: clamp(1.5rem, 4vw, 2rem);
-    }
-    .game-wrapper { display:flex; justify-content:center; width:100%; overflow:hidden; }
     canvas {
-      border: 3px solid var(--accent); border-radius: 12px; background: #000;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4); max-width: 100%; height: auto;
-    }
-
-    /* --- code editor mini UI --- */
-    .code-section { text-align: center; padding: 3rem 1rem; max-width: 900px; margin: 0 auto 2rem; }
-    .code-section h2 { color: var(--accent); margin-bottom: 0.5rem; }
-    .code-section p { color: var(--muted); margin-bottom: 1rem; }
-
-    .code-container {
-      background: var(--card);
-      border-radius: 10px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-      text-align: left;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.03);
-    }
-
-    /* fake title bar */
-    .code-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 14px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-      border-bottom: 1px solid rgba(255,255,255,0.02);
-    }
-    .window-buttons { display:flex; gap:8px; align-items:center; }
-    .btn {
-      width:12px; height:12px; border-radius:50%; display:inline-block;
-      box-shadow: inset 0 -1px 0 rgba(0,0,0,0.25);
-    }
-    .btn.close { background:#ff5f56; }
-    .btn.min { background:#ffbd2e; }
-    .btn.max { background:#27c93f; }
-
-    .code-filename {
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-left: 8px;
-    }
-
-    pre { margin: 0; overflow-x: auto; padding: 16px; }
-    code {
-      font-family: "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
-      line-height: 1.45;
-      font-size: 0.9rem;
       display: block;
-      white-space: pre;
+      margin: 1rem auto;
+      background: #000;
+      border-radius: 8px;
+      touch-action: manipulation;
     }
-
-    /* responsive tweaks */
-    @media (max-width:520px) {
-      .hero { padding: 2.5rem 1rem; }
-      .code-section { padding: 2rem 1rem; }
-      pre { padding: 12px; font-size: 0.85rem; }
+    button.play-btn {
+      background: #06d6a0;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 6px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
     }
-
-    /* contact/footer */
-    .contact { text-align: left; padding: 2.5rem 1.5rem; max-width:900px; width:100%; margin:0 auto 2rem; }
-    .contact h2 { color: var(--accent); margin-bottom: 0.6rem; }
-    .contact p { color: var(--muted); margin-bottom: 0.7rem; }
-    .contact a {
-      display: inline-block; background: var(--accent); color: white; padding: 0.6rem 1rem;
-      border-radius: 8px; text-decoration: none; transition: var(--transition);
+    button.play-btn:hover {
+      background: #05c08e;
     }
-    .contact a:hover { background: #0088cc; }
-
-    footer { text-align: center; color: var(--muted); font-size: 0.9rem; padding: 1rem; width: 100%; }
+    footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+    /* Code display styling */
+    .code-section {
+      max-width: 900px;
+      margin: 4rem auto;
+      text-align: left;
+      padding: 1rem;
+    }
+    .code-title {
+      font-size: 1.4rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #ffd166;
+    }
+    .code-container {
+      background: #1e1e1e;
+      border-radius: 10px;
+      padding: 1rem;
+      overflow-x: auto;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    }
+    pre {
+      margin: 0;
+      font-family: "Fira Code", monospace;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.4rem;
+      }
+      canvas {
+        width: 95vw;
+        height: auto;
+      }
+    }
   </style>
+
+  <!-- 🌈 Syntax highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
 </head>
 
 <body>
-  <header>
-    <h1>Pansilu Chethiya</h1>
-    <nav>
-      <a href="#game">Game</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <button class="theme-toggle" id="themeToggle">🌛</button>
-  </header>
+  <h1>Flappy Bird Clone 🐤</h1>
+  <p>A sleek, responsive recreation built with HTML, Canvas & JavaScript. Works great on mobile too — tap or press W to flap!</p>
 
-  <section class="hero">
-    <h2>Flappy Bird Clone (Also known as the wild Vihanga) 🐤</h2>
-    <p>A sleek, responsive recreation of Vihanga Bird built with HTML and JavaScript (almost). Works beautifully on both desktop and mobile — tap or press W to flap!</p>
-    <button onclick="document.getElementById('game').scrollIntoView({behavior:'smooth'})">Play Now (or else)</button>
-  </section>
+  <canvas id="gameCanvas" width="360" height="640"></canvas>
+  <button class="play-btn" id="playButton">🎮 Play the Game</button>
 
-  <section id="game" class="game-section">
-    <h2>🎮 Play the Game</h2>
-    <div class="game-wrapper">
-      <canvas id="gameCanvas" width="400" height="650"></canvas>
-    </div>
-  </section>
+  <footer>
+    <p>© 2025 Pansilu Chethiya | Contact: pansilululu_96243 (Discord)</p>
+  </footer>
 
-  <!-- CODE DISPLAY -->
-  <section class="code-section" aria-labelledby="codeHeading">
-    <h2 id="codeHeading">🐍 The Python Code Behind the Game</h2>
-    <p>Here’s the Pygame version — shown in a cozy mini-editor.</p>
-
-    <div class="code-container" role="region" aria-label="Python code example">
-      <div class="code-header">
-        <div class="window-buttons" aria-hidden="true">
-          <span class="btn close"></span>
-          <span class="btn min"></span>
-          <span class="btn max"></span>
-        </div>
-        <div class="code-filename">FlappyBird.py</div>
-      </div>
-
+  <!-- 🐍 Python Code Display -->
+  <section class="code-section">
+    <h2 class="code-title">🐍 The Python Version (Pygame)</h2>
+    <div class="code-container">
       <pre><code class="language-python">
 import pygame
 from sys import exit
 import random
 
+
+# game variables
 GAME_WIDTH = 360
 GAME_HEIGHT = 640
 
+# bird class
 bird_x = GAME_WIDTH / 8
 bird_y = GAME_HEIGHT / 2
 bird_width = 34
 bird_height = 24
+
 
 class Bird(pygame.Rect):
     def __init__(self, img):
         super().__init__(bird_x, bird_y, bird_width, bird_height)
         self.image = img
 
+
+# pipe class
 pipe_x = GAME_WIDTH
 pipe_y = 0
 pipe_width = 64
 pipe_height = 512
+
 
 class Pipe(pygame.Rect):
     def __init__(self, x, y, img):
@@ -244,18 +142,35 @@ class Pipe(pygame.Rect):
         self.image = img
         self.passed = False
 
+
+# initialize pygame and window before loading assets (safer across platforms)
 pygame.init()
+
 window = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
 pygame.display.set_caption("Flappy Bird")
+
 clock = pygame.time.Clock()
 
 create_pipes_timer = pygame.USEREVENT + 0
-pygame.time.set_timer(create_pipes_timer, 1500)
+pygame.time.set_timer(create_pipes_timer, 1500)  # every 1.5 seconds
 
-background_image = pygame.image.load("flappybirdbg.png")
-bird_image = pygame.transform.scale(pygame.image.load("flappybird.png"), (bird_width, bird_height))
-top_pipe_image = pygame.transform.scale(pygame.image.load("toppipe.png"), (pipe_width, pipe_height))
-bottom_pipe_image = pygame.transform.scale(pygame.image.load("bottompipe.png"), (pipe_width, pipe_height))
+
+# game images
+background_image = pygame.image.load("assets/flappybirdbg.png")
+
+bird_image = pygame.image.load("assets/flappybird.png")
+bird_image = pygame.transform.scale(bird_image, (bird_width, bird_height))
+
+top_pipe_image = pygame.image.load("assets/toppipe.png")
+top_pipe_image = pygame.transform.scale(
+    top_pipe_image, (pipe_width, pipe_height))
+
+bottom_pipe_image = pygame.image.load("assets/bottompipe.png")
+bottom_pipe_image = pygame.transform.scale(
+    bottom_pipe_image, (pipe_width, pipe_height))
+
+
+# game logic
 
 bird = Bird(bird_image)
 pipes = []
@@ -265,24 +180,32 @@ gravity = 0.4
 score = 0
 game_over = False
 
+
 def draw():
     window.blit(background_image, (0, 0))
     window.blit(bird.image, bird)
+
     for pipe in pipes:
         window.blit(pipe.image, pipe)
 
-    font = pygame.font.SysFont("Comic Sans MS", 40)
-    window.blit(font.render(str(int(score)), True, (255,255,255)), (5,0))
+    text_str = str(int(score))
+    text_font = pygame.font.SysFont("Comic Sans MS", 40)
+    text_render = text_font.render(text_str, True, (255, 255, 255))
+    window.blit(text_render, (5, 0))
 
     if game_over:
         go_font = pygame.font.SysFont("Comic Sans MS", 50)
         go_text = go_font.render(f"Game Over: {int(score)}", True, (255, 0, 0))
-        go_rect = go_text.get_rect(center=(GAME_WIDTH//2, GAME_HEIGHT//2))
+        go_rect = go_text.get_rect(center=(GAME_WIDTH // 2, GAME_HEIGHT // 2))
         window.blit(go_text, go_rect)
+
         sub_font = pygame.font.SysFont("Comic Sans MS", 22)
-        sub_text = sub_font.render("Press Space to restart or Q to close", True, (255,255,255))
-        sub_rect = sub_text.get_rect(center=(GAME_WIDTH//2, GAME_HEIGHT//2+48))
+        sub_text = sub_font.render(
+            "Press Space to restart or Q to close", True, (255, 255, 255))
+        sub_rect = sub_text.get_rect(
+            center=(GAME_WIDTH // 2, GAME_HEIGHT // 2 + 48))
         window.blit(sub_text, sub_rect)
+
 
 def move():
     global velocity_y, score, game_over
@@ -290,97 +213,197 @@ def move():
     bird.y += velocity_y
     bird.y = max(bird.y, 0)
 
-    if bird.y > GAME_HEIGHT: game_over = True; return
+    if bird.y > GAME_HEIGHT:
+        game_over = True
+        return
 
     for pipe in pipes:
         pipe.x += velocity_x
+
         if not pipe.passed and bird.x > pipe.x + pipe.width:
             score += 0.5
             pipe.passed = True
+
         if bird.colliderect(pipe):
             game_over = True
             return
 
-    while pipes and pipes[0].x < -pipe_width:
+    while len(pipes) > 0 and pipes[0].x < -pipe_width:
         pipes.pop(0)
+
 
 def create_pipe():
     random_pipe_y = pipe_y - pipe_height/4 - random.random()*(pipe_height/2)
     opening_space = GAME_HEIGHT/4
-    top_pipe = Pipe(pipe_x, random_pipe_y, top_pipe_image)
-    bottom_pipe = Pipe(pipe_x, top_pipe.y + pipe_height + opening_space, bottom_pipe_image)
-    pipes.extend([top_pipe, bottom_pipe])
+
+    top_pipe = Pipe(pipe_x, pipe_y, top_pipe_image)
+    top_pipe.y = random_pipe_y
+    pipes.append(top_pipe)
+
+    bottom_pipe = Pipe(pipe_x, pipe_y, bottom_pipe_image)
+    bottom_pipe.y = top_pipe.y + pipe_height + opening_space
+    pipes.append(bottom_pipe)
+    print(len(pipes))
+
 
 def reset_game():
     global pipes, velocity_y, score, game_over
-    pipes.clear()
+    pipes = []
     velocity_y = 0
     score = 0
     game_over = False
     bird.x = bird_x
     bird.y = bird_y
 
+
 while True:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT: pygame.quit(); exit()
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+
         if event.type == create_pipes_timer and not game_over:
             create_pipe()
+
         if event.type == pygame.KEYDOWN:
+            # jump when playing
             if not game_over and event.key in (pygame.K_SPACE, pygame.K_UP, pygame.K_w):
                 velocity_y = -6
-            if game_over:
-                if event.key == pygame.K_SPACE: reset_game()
-                if event.key == pygame.K_q: pygame.quit(); exit()
 
-    if not game_over: move()
+            # restart or quit when game over
+            if game_over:
+                if event.key == pygame.K_SPACE:
+                    reset_game()
+                if event.key == pygame.K_q:
+                    pygame.quit()
+                    exit()
+
+    # update game state only when not game over
+    if not game_over:
+        move()
+
+    # always draw/update so the window remains responsive and shows game over
     draw()
     pygame.display.update()
-    clock.tick(60)
+    clock.tick(60)  # fps
+
       </code></pre>
     </div>
   </section>
 
-  <section id="contact" class="contact">
-    <h2>Let's Connect</h2>
-    <p>Have feedback? Get in touch!</p>
-    <a href="mailto:pansiluchethiya2012@outlook.com">📧 Email Me — also on Discord: pansilululu_96243</a>
-  </section>
-
-  <footer>© 2025 Pansilu Chethiya</footer>
-
-  <!-- Highlight.js script & theme toggle init AFTER DOM loads -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <!-- 🎮 JavaScript Game Logic -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // init highlight.js
-      if (window.hljs) hljs.highlightAll();
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    const playBtn = document.getElementById("playButton");
 
-      // theme toggle
-      const toggle = document.getElementById("themeToggle");
-      const body = document.body;
-      if (localStorage.getItem("theme") === "light") {
-        body.classList.add("light");
-        toggle.textContent = "☀️";
-      }
-      toggle.addEventListener("click", () => {
-        body.classList.toggle("light");
-        const isLight = body.classList.contains("light");
-        toggle.textContent = isLight ? "☀️" : "🌛";
-        localStorage.setItem("theme", isLight ? "light" : "dark");
-      });
+    let gameRunning = false;
+    let bird, gravity, velocity, pipes, score;
 
-      // resize canvas to be responsive
-      const canvas = document.getElementById("gameCanvas");
-      if (canvas) {
-        const resizeCanvas = () => {
-          const scale = Math.min(window.innerWidth / 400, 1);
-          canvas.style.width = 400 * scale + "px";
-          canvas.style.height = 650 * scale + "px";
-        };
-        window.addEventListener("resize", resizeCanvas);
-        resizeCanvas();
-      }
+    const birdImg = new Image();
+    const bgImg = new Image();
+    const pipeTop = new Image();
+    const pipeBottom = new Image();
+
+    birdImg.src = "https://i.ibb.co/jVjVpFF/flappybird.png";
+    bgImg.src = "https://i.ibb.co/0mBLfxS/flappybirdbg.png";
+    pipeTop.src = "https://i.ibb.co/fDttf7T/toppipe.png";
+    pipeBottom.src = "https://i.ibb.co/JBR6D1X/bottompipe.png";
+
+    function startGame() {
+      gameRunning = true;
+      score = 0;
+      velocity = 0;
+      gravity = 0.4;
+      bird = { x: 50, y: canvas.height / 2, w: 34, h: 24 };
+      pipes = [];
+      playBtn.style.display = "none";
+      loop();
+    }
+
+    function flap() {
+      if (gameRunning) velocity = -6;
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === " " || e.key.toLowerCase() === "w") flap();
     });
+    canvas.addEventListener("touchstart", flap);
+
+    function createPipe() {
+      const gap = 130;
+      const topHeight = Math.random() * (canvas.height / 2);
+      pipes.push({
+        x: canvas.width,
+        y: topHeight - pipeTop.height,
+        passed: false,
+      });
+    }
+
+    function drawPipes() {
+      for (let pipe of pipes) {
+        ctx.drawImage(pipeTop, pipe.x, pipe.y);
+        ctx.drawImage(pipeBottom, pipe.x, pipe.y + pipeTop.height + 130);
+      }
+    }
+
+    function updatePipes() {
+      for (let pipe of pipes) {
+        pipe.x -= 2;
+        if (!pipe.passed && bird.x > pipe.x + pipeTop.width) {
+          score++;
+          pipe.passed = true;
+        }
+      }
+      pipes = pipes.filter(p => p.x > -pipeTop.width);
+    }
+
+    function loop() {
+      if (!gameRunning) return;
+      ctx.drawImage(bgImg, 0, 0);
+      velocity += gravity;
+      bird.y += velocity;
+      ctx.drawImage(birdImg, bird.x, bird.y);
+
+      if (pipes.length === 0 || pipes[pipes.length - 1].x < canvas.width - 200) {
+        createPipe();
+      }
+
+      drawPipes();
+      updatePipes();
+
+      // Collision detection
+      if (bird.y + bird.h > canvas.height || bird.y < 0) {
+        endGame();
+      }
+
+      for (let pipe of pipes) {
+        if (
+          bird.x < pipe.x + pipeTop.width &&
+          bird.x + bird.w > pipe.x &&
+          (bird.y < pipe.y + pipeTop.height ||
+            bird.y + bird.h > pipe.y + pipeTop.height + 130)
+        ) {
+          endGame();
+        }
+      }
+
+      ctx.fillStyle = "#fff";
+      ctx.font = "24px Poppins";
+      ctx.fillText("Score: " + score, 10, 30);
+
+      if (gameRunning) requestAnimationFrame(loop);
+    }
+
+    function endGame() {
+      gameRunning = false;
+      playBtn.style.display = "inline-block";
+      ctx.fillStyle = "red";
+      ctx.font = "40px Poppins";
+      ctx.fillText("Game Over!", canvas.width / 2 - 100, canvas.height / 2);
+    }
+
+    playBtn.addEventListener("click", startGame);
   </script>
 </body>
 </html>
