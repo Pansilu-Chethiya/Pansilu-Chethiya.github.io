@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pansilu’s Mini Code IDE</title>
+  <!-- Code syntax highlighting -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      background: #0f111a;
+      color: #e0e0e0;
+      font-family: 'Fira Code', monospace;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(90deg, #1f1f2e, #181a25);
+      padding: 15px 20px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header h1 {
+      font-size: 1.2rem;
+      margin: 0;
+      color: #61dafb;
+      letter-spacing: 0.5px;
+    }
+
+    header a {
+      color: #61dafb;
+      text-decoration: none;
+      background: #20232a;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+
+    header a:hover {
+      background: #2c2f38;
+    }
+
+    main {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .editor-container {
+      position: relative;
+      background: #1e1e1e;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      overflow: hidden;
+    }
+
+    .editor-header {
+      background: #2c2f38;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .dot.red { background: #ff5f56; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #27c93f; }
+
+    pre[class*="language-"] {
+      margin: 0;
+      padding: 20px;
+      max-height: 75vh;
+      overflow-y: auto;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #11131b;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    footer a {
+      color: #61dafb;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>💻 Pansilu’s Mini Code IDE</h1>
+    <a href="index.html">← Back to Game</a>
+  </header>
+
+  <main>
+    <div class="editor-container">
+      <div class="editor-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span style="margin-left:10px;color:#ccc;">flappy_bird.py</span>
+      </div>
+      <pre><code class="language-python">
+import pygame
+from sys import exit
+import random
+
+GAME_WIDTH = 360
+GAME_HEIGHT = 640
+
+bird_x = GAME_WIDTH / 8
+bird_y = GAME_HEIGHT / 2
+bird_width = 34
+bird_height = 24
+
+class Bird(pygame.Rect):
+    def __init__(self, img):
+        super().__init__(bird_x, bird_y, bird_width, bird_height)
+        self.image = img
+
+class Pipe(pygame.Rect):
+    def __init__(self, x, y, img):
+        super().__init__(x, y, 64, 512)
+        self.image = img
+        self.passed = False
+
+pygame.init()
+window = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
+pygame.display.set_caption("Flappy Bird")
+clock = pygame.time.Clock()
+
+create_pipes_timer = pygame.USEREVENT + 0
+pygame.time.set_timer(create_pipes_timer, 1500)
+
+background_image = pygame.image.load("flappybirdbg.png")
+bird_image = pygame.image.load("flappybird.png")
+top_pipe_image = pygame.image.load("toppipe.png")
+bottom_pipe_image = pygame.image.load("bottompipe.png")
+
+bird = Bird(bird_image)
+pipes = []
+velocity_x = -2
+velocity_y = 0
+gravity = 0.4
+score = 0
+game_over = False
+      </code></pre>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 <b>Pansilu Chethiya</b> — <a href="mailto:pansilululu@gmail.com">Email Me</a> |
+    Discord: <b>pansilululu_96243</b>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>
