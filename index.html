@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <title>Pansilu Chethiya | 😊</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <!-- Highlight.js CDN -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script>hljs.highlightAll();</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-      * { box-sizing: border-box; margin: 0; padding: 0; }
+  <!-- Highlight.js styles (only stylesheet here; init runs after DOM) -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 
+  <style>
+    /* --- base / vars --- */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     :root {
@@ -23,34 +23,6 @@
       --accent: #00aaff;
       --transition: 0.3s ease;
     }
-
-.code-section {
-  text-align: center;
-  padding: 4rem 1rem;
-  max-width: 900px;
-  margin: auto;
-}
-.code-section h2 {
-  color: var(--accent);
-  margin-bottom: 1rem;
-}
-.code-container {
-  background: var(--card);
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-  text-align: left;
-  overflow-x: auto;
-  padding: 1rem;
-  font-size: 0.9rem;
-}
-pre {
-  margin: 0;
-  overflow-x: auto;
-}
-code {
-  font-family: "Fira Code", monospace;
-  line-height: 1.4;
- 
 
     body.light {
       --bg: #f6f8fa;
@@ -70,8 +42,11 @@ code {
       align-items: center;
       overflow-x: hidden;
       transition: background var(--transition), color var(--transition);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
+    /* --- header / nav --- */
     header {
       display: flex;
       justify-content: space-between;
@@ -83,11 +58,7 @@ code {
       gap: 1rem;
     }
 
-    header h1 {
-      color: var(--accent);
-      font-size: 1.8rem;
-    }
-
+    header h1 { color: var(--accent); font-size: 1.8rem; }
     nav a {
       color: var(--muted);
       text-decoration: none;
@@ -95,7 +66,6 @@ code {
       font-size: 1rem;
       margin-left: 1rem;
     }
-
     nav a:hover { color: var(--accent); }
 
     .theme-toggle {
@@ -111,111 +81,99 @@ code {
       cursor: pointer;
       transition: var(--transition);
     }
+    .theme-toggle:hover { background: var(--accent); color: #fff; }
 
-    .theme-toggle:hover {
-      background: var(--accent);
-      color: #fff;
-    }
-
+    /* --- hero / game --- */
     .hero {
       text-align: center;
       padding: 4rem 1.5rem;
       max-width: 800px;
     }
-
-    .hero h2 {
-      font-size: clamp(1.8rem, 5vw, 2.5rem);
-      margin-bottom: 0.5rem;
-    }
-
-    .hero p {
-      color: var(--muted);
-      font-size: 1rem;
-      margin-bottom: 2rem;
-      line-height: 1.5;
-    }
-
+    .hero h2 { font-size: clamp(1.8rem, 5vw, 2.5rem); margin-bottom: 0.5rem; }
+    .hero p { color: var(--muted); font-size: 1rem; margin-bottom: 2rem; line-height: 1.5; }
     .hero button {
-      padding: 0.8rem 2rem;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: var(--transition);
+      padding: 0.8rem 2rem; background: var(--accent); color: #fff; border: none; border-radius: 8px;
+      cursor: pointer; font-size: 1rem; transition: var(--transition);
     }
-
-    .hero button:hover {
-      background: #0088cc;
-      transform: translateY(-3px);
-    }
+    .hero button:hover { background: #0088cc; transform: translateY(-3px); }
 
     .game-section {
-      text-align: center;
-      padding: 3rem 1rem;
-      width: 100%;
-      max-width: 1000px;
+      text-align: center; padding: 3rem 1rem; width: 100%; max-width: 1000px;
     }
-
     .game-section h2 {
-      color: var(--accent);
-      margin-bottom: 1.2rem;
-      font-size: clamp(1.5rem, 4vw, 2rem);
+      color: var(--accent); margin-bottom: 1.2rem; font-size: clamp(1.5rem, 4vw, 2rem);
     }
-
-    .game-wrapper {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      overflow: hidden;
-    }
-
+    .game-wrapper { display:flex; justify-content:center; width:100%; overflow:hidden; }
     canvas {
-      border: 3px solid var(--accent);
-      border-radius: 12px;
-      background: #000;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-      max-width: 100%;
-      height: auto;
+      border: 3px solid var(--accent); border-radius: 12px; background: #000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4); max-width: 100%; height: auto;
     }
 
-    .contact {
+    /* --- code editor mini UI --- */
+    .code-section { text-align: center; padding: 3rem 1rem; max-width: 900px; margin: 0 auto 2rem; }
+    .code-section h2 { color: var(--accent); margin-bottom: 0.5rem; }
+    .code-section p { color: var(--muted); margin-bottom: 1rem; }
+
+    .code-container {
+      background: var(--card);
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
       text-align: left;
-      padding: 4rem 1.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.03);
     }
 
-    .contact h2 {
-      color: var(--accent);
-      margin-bottom: 1rem;
+    /* fake title bar */
+    .code-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-bottom: 1px solid rgba(255,255,255,0.02);
     }
-
-    .contact p {
-      color: var(--muted);
-      margin-bottom: 1.5rem;
+    .window-buttons { display:flex; gap:8px; align-items:center; }
+    .btn {
+      width:12px; height:12px; border-radius:50%; display:inline-block;
+      box-shadow: inset 0 -1px 0 rgba(0,0,0,0.25);
     }
+    .btn.close { background:#ff5f56; }
+    .btn.min { background:#ffbd2e; }
+    .btn.max { background:#27c93f; }
 
-    .contact a {
-      display: inline-block;
-      background: var(--accent);
-      color: white;
-      padding: 0.8rem 1.6rem;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: var(--transition);
-    }
-
-    .contact a:hover {
-      background: #0088cc;
-    }
-
-    footer {
-      text-align: center;
+    .code-filename {
       color: var(--muted);
       font-size: 0.9rem;
-      padding: 1rem;
-      width: 100%;
+      margin-left: 8px;
     }
+
+    pre { margin: 0; overflow-x: auto; padding: 16px; }
+    code {
+      font-family: "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      line-height: 1.45;
+      font-size: 0.9rem;
+      display: block;
+      white-space: pre;
+    }
+
+    /* responsive tweaks */
+    @media (max-width:520px) {
+      .hero { padding: 2.5rem 1rem; }
+      .code-section { padding: 2rem 1rem; }
+      pre { padding: 12px; font-size: 0.85rem; }
+    }
+
+    /* contact/footer */
+    .contact { text-align: left; padding: 2.5rem 1.5rem; max-width:900px; width:100%; margin:0 auto 2rem; }
+    .contact h2 { color: var(--accent); margin-bottom: 0.6rem; }
+    .contact p { color: var(--muted); margin-bottom: 0.7rem; }
+    .contact a {
+      display: inline-block; background: var(--accent); color: white; padding: 0.6rem 1rem;
+      border-radius: 8px; text-decoration: none; transition: var(--transition);
+    }
+    .contact a:hover { background: #0088cc; }
+
+    footer { text-align: center; color: var(--muted); font-size: 0.9rem; padding: 1rem; width: 100%; }
   </style>
 </head>
 
@@ -242,13 +200,22 @@ code {
     </div>
   </section>
 
-  <!-- === PYTHON CODE DISPLAY SECTION === -->
-<section class="code-section">
-  <h2>🐍 The Python Code Behind the Game</h2>
-  <p>Here’s the Pygame version of my Flappy Bird clone — clean, structured, and minimal.</p>
+  <!-- CODE DISPLAY -->
+  <section class="code-section" aria-labelledby="codeHeading">
+    <h2 id="codeHeading">🐍 The Python Code Behind the Game</h2>
+    <p>Here’s the Pygame version — shown in a cozy mini-editor.</p>
 
-  <div class="code-container">
-    <pre><code class="language-python">
+    <div class="code-container" role="region" aria-label="Python code example">
+      <div class="code-header">
+        <div class="window-buttons" aria-hidden="true">
+          <span class="btn close"></span>
+          <span class="btn min"></span>
+          <span class="btn max"></span>
+        </div>
+        <div class="code-filename">FlappyBird.py</div>
+      </div>
+
+      <pre><code class="language-python">
 import pygame
 from sys import exit
 import random
@@ -369,124 +336,51 @@ while True:
     draw()
     pygame.display.update()
     clock.tick(60)
-    </code></pre>
-  </div>
-</section>
-
+      </code></pre>
+    </div>
+  </section>
 
   <section id="contact" class="contact">
     <h2>Let's Connect</h2>
     <p>Have feedback? Get in touch!</p>
     <a href="mailto:pansiluchethiya2012@outlook.com">📧 Email Me — also on Discord: pansilululu_96243</a>
-
   </section>
 
   <footer>© 2025 Pansilu Chethiya</footer>
 
+  <!-- Highlight.js script & theme toggle init AFTER DOM loads -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script>
-    // === THEME TOGGLE ===
-    const toggle = document.getElementById("themeToggle");
-    const body = document.body;
-    if (localStorage.getItem("theme") === "light") {
-      body.classList.add("light");
-      toggle.textContent = "☀️";
-    }
-    toggle.addEventListener("click", () => {
-      body.classList.toggle("light");
-      const isLight = body.classList.contains("light");
-      toggle.textContent = isLight ? "☀️" : "🌛";
-      localStorage.setItem("theme", isLight ? "light" : "dark");
-    });
+    document.addEventListener('DOMContentLoaded', () => {
+      // init highlight.js
+      if (window.hljs) hljs.highlightAll();
 
-    // === FLAPPY BIRD GAME ===
-    const canvas = document.getElementById("gameCanvas");
-    const ctx = canvas.getContext("2d");
-
-    function resizeCanvas() {
-      const scale = Math.min(window.innerWidth / 400, 1);
-      canvas.style.width = 400 * scale + "px";
-      canvas.style.height = 650 * scale + "px";
-    }
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
-
-    const GAME_WIDTH = 400, GAME_HEIGHT = 650;
-    const birdWidth = 34, birdHeight = 24, pipeWidth = 64, pipeHeight = 512;
-    let bird = { x: GAME_WIDTH/8, y: GAME_HEIGHT/2, width: birdWidth, height: birdHeight, velocityY: 0, image: new Image() };
-    let pipes = [];
-    let gravity = 0.4, velocityX = -2, score = 0, gameOver = false;
-
-    const background = new Image(), topPipeImg = new Image(), bottomPipeImg = new Image();
-    background.src = "flappybirdbg.png";
-    bird.image.src = "flappybird.png";
-    topPipeImg.src = "toppipe.png";
-    bottomPipeImg.src = "bottompipe.png";
-
-    function draw() {
-      ctx.drawImage(background, 0, 0, GAME_WIDTH, GAME_HEIGHT);
-      ctx.drawImage(bird.image, bird.x, bird.y, bird.width, bird.height);
-      for (let pipe of pipes) ctx.drawImage(pipe.image, pipe.x, pipe.y, pipeWidth, pipeHeight);
-      ctx.fillStyle = "white";
-      ctx.font = "40px Comic Sans MS";
-      ctx.fillText(Math.floor(score), 5, 40);
-      if (gameOver) {
-        ctx.fillStyle = "red";
-        ctx.font = "50px Comic Sans MS";
-        ctx.textAlign = "center";
-        ctx.fillText(`Game Over: ${Math.floor(score)}`, GAME_WIDTH/2, GAME_HEIGHT/2);
-        ctx.fillStyle = "white";
-        ctx.font = "22px Comic Sans MS";
-        ctx.fillText("Tap / W to restart", GAME_WIDTH/2, GAME_HEIGHT/2 + 48);
-        ctx.textAlign = "left";
+      // theme toggle
+      const toggle = document.getElementById("themeToggle");
+      const body = document.body;
+      if (localStorage.getItem("theme") === "light") {
+        body.classList.add("light");
+        toggle.textContent = "☀️";
       }
-    }
+      toggle.addEventListener("click", () => {
+        body.classList.toggle("light");
+        const isLight = body.classList.contains("light");
+        toggle.textContent = isLight ? "☀️" : "🌛";
+        localStorage.setItem("theme", isLight ? "light" : "dark");
+      });
 
-    function move() {
-      bird.velocityY += gravity;
-      bird.y += bird.velocityY;
-      bird.y = Math.max(bird.y, 0);
-      if (bird.y > GAME_HEIGHT) gameOver = true;
-      for (let pipe of pipes) {
-        pipe.x += velocityX;
-        if (!pipe.passed && bird.x > pipe.x + pipeWidth) { score += 0.5; pipe.passed = true; }
-        if (bird.x < pipe.x + pipeWidth && bird.x + bird.width > pipe.x &&
-            bird.y < pipe.y + pipeHeight && bird.y + bird.height > pipe.y) {
-          gameOver = true; return;
-        }
+      // resize canvas to be responsive
+      const canvas = document.getElementById("gameCanvas");
+      if (canvas) {
+        const resizeCanvas = () => {
+          const scale = Math.min(window.innerWidth / 400, 1);
+          canvas.style.width = 400 * scale + "px";
+          canvas.style.height = 650 * scale + "px";
+        };
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
       }
-      pipes = pipes.filter(p => p.x > -pipeWidth);
-    }
-
-    function createPipe() {
-      const randomY = -pipeHeight/4 - Math.random()*(pipeHeight/2);
-      const gap = GAME_HEIGHT/4;
-      pipes.push({ x: GAME_WIDTH, y: randomY, image: topPipeImg, passed: false });
-      pipes.push({ x: GAME_WIDTH, y: randomY + pipeHeight + gap, image: bottomPipeImg, passed: false });
-    }
-
-    function resetGame() {
-      bird.x = GAME_WIDTH/8; bird.y = GAME_HEIGHT/2; bird.velocityY = 0;
-      pipes = []; score = 0; gameOver = false;
-    }
-
-    document.addEventListener("keydown", e => {
-      if (!gameOver && ["ArrowUp", "w", "W"].includes(e.key)) bird.velocityY = -6;
-      else if (gameOver && ["w", "W"].includes(e.key)) resetGame();
     });
-
-    canvas.addEventListener("touchstart", () => {
-      if (!gameOver) bird.velocityY = -6;
-      else resetGame();
-    });
-
-    setInterval(() => { if (!gameOver) createPipe(); }, 1500);
-
-    function loop() {
-      if (!gameOver) move();
-      draw();
-      requestAnimationFrame(loop);
-    }
-    loop();
   </script>
 </body>
 </html>
