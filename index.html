@@ -183,6 +183,43 @@
       padding: 1rem;
       width: 100%;
     }
+    /* === Code Section (Mini IDE look) === */
+.code-section {
+  background: #0d1117;
+  color: #e6edf3;
+  font-family: "Fira Code", monospace;
+  border-radius: 12px;
+  padding: 25px 20px;
+  margin: 40px auto;
+  max-width: 900px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Header bar with Mac-like buttons */
+.code-section{
+  content: "";
+  display: block;
+  background: linear-gradient(90deg, #2d333b, #22262c);
+  height: 28px;
+  border-radius: 10px 10px 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+/* Responsive */
+@media (max-width: 600px) {
+  .code-section {
+    padding: 20px 10px;
+    font-size: 13px;
+  }
+  .code-section pre {
+    padding: 12px;
+  }
+}
+
   </style>
 </head>
 
@@ -192,6 +229,8 @@
     <nav>
       <a href="#game">Game</a>
       <a href="#contact">Contact</a>
+      <a href="#code">Code</a>
+
     </nav>
     <button class="theme-toggle" id="themeToggle">🌛</button>
   </header>
@@ -206,6 +245,13 @@
     <h2>🎮 Play the Game</h2>
     <div class="game-wrapper">
       <canvas id="gameCanvas" width="400" height="650"></canvas>
+    </div>
+  </section>
+
+    <section id="code" class="code-section">
+    <h2>This is the code</h2>
+    <div class="game-wrapper">
+      <a href = "source.html"> Click Me </a>
     </div>
   </section>
 
