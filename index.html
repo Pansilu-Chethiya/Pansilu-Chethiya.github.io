@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Pansilu Chethiya |😊 </title>
-
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-  
+  <title>Pansilu Chethiya | 😊</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <style>
+  <style> 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     html { scroll-behavior: smooth; }
 
     :root {
@@ -51,7 +50,10 @@
       gap: 1rem;
     }
 
-    header h1 { color: var(--accent); font-size: 1.8rem; }
+    header h1 {
+      color: var(--accent);
+      font-size: 1.8rem;
+    }
 
     nav a {
       color: var(--muted);
@@ -60,6 +62,7 @@
       font-size: 1rem;
       margin-left: 1rem;
     }
+
     nav a:hover { color: var(--accent); }
 
     .theme-toggle {
@@ -75,15 +78,30 @@
       cursor: pointer;
       transition: var(--transition);
     }
-    .theme-toggle:hover { background: var(--accent); color: #fff; }
+
+    .theme-toggle:hover {
+      background: var(--accent);
+      color: #fff;
+    }
 
     .hero {
       text-align: center;
       padding: 4rem 1.5rem;
       max-width: 800px;
     }
-    .hero h2 { font-size: clamp(1.8rem, 5vw, 2.5rem); margin-bottom: 0.5rem; }
-    .hero p { color: var(--muted); font-size: 1rem; margin-bottom: 2rem; line-height: 1.5; }
+
+    .hero h2 {
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
     .hero button {
       padding: 0.8rem 2rem;
       background: var(--accent);
@@ -94,7 +112,11 @@
       font-size: 1rem;
       transition: var(--transition);
     }
-    .hero button:hover { background: #0088cc; transform: translateY(-3px); }
+
+    .hero button:hover {
+      background: #0088cc;
+      transform: translateY(-3px);
+    }
 
     .game-section {
       text-align: center;
@@ -102,6 +124,7 @@
       width: 100%;
       max-width: 1000px;
     }
+
     .game-section h2 {
       color: var(--accent);
       margin-bottom: 1.2rem;
@@ -128,8 +151,17 @@
       text-align: center;
       padding: 4rem 1.5rem;
     }
-    .contact h2 { color: var(--accent); margin-bottom: 1rem; }
-    .contact p { color: var(--muted); margin-bottom: 1.5rem; }
+
+    .contact h2 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .contact p {
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
     .contact a {
       display: inline-block;
       background: var(--accent);
@@ -139,7 +171,10 @@
       text-decoration: none;
       transition: var(--transition);
     }
-    .contact a:hover { background: #0088cc; }
+
+    .contact a:hover {
+      background: #0088cc;
+    }
 
     footer {
       text-align: center;
@@ -158,12 +193,12 @@
       <a href="#game">Game</a>
       <a href="#contact">Contact</a>
     </nav>
-    <button class="theme-toggle" id="themeToggle🌛</button>
+    <button class="theme-toggle" id="themeToggle">🌛</button>
   </header>
 
   <section class="hero">
-    <h2>Flappy Bird Clone (Also knows as the wild Vihanga)🐤</h2>
-    <p>A sleek, responsive recreation of Vihanga Bird built with HTML and JavaScript (almost). Works beautifully on both desktop and mobile — tap or press w to flap!</p>
+    <h2>Flappy Bird Clone (Also known as the wild Vihanga) 🐤</h2>
+    <p>A sleek, responsive recreation of Vihanga Bird built with HTML and JavaScript (almost). Works beautifully on both desktop and mobile — tap or press W to flap!</p>
     <button onclick="document.getElementById('game').scrollIntoView({behavior:'smooth'})">Play Now (or else)</button>
   </section>
 
@@ -176,24 +211,24 @@
 
   <section id="contact" class="contact">
     <h2>Let's Connect</h2>
-    <p>Have feedback Get in touch!</p>
-    <a href="mailto:pansiluchethiya2012@outlook.com">📧 Email Me, also I'm in Discord my username is pansilululu_96243</a>
+    <p>Have feedback? Get in touch!</p>
+    <a href="mailto:pansiluchethiya2012@outlook.com">📧 Email Me — also on Discord: pansilululu_96243</a>
   </section>
 
   <footer>© 2025 Pansilu Chethiya</footer>
 
-  <script>😎
+  <script>
     // === THEME TOGGLE ===
     const toggle = document.getElementById("themeToggle");
     const body = document.body;
     if (localStorage.getItem("theme") === "light") {
       body.classList.add("light");
-      toggle.textContent ="☀️";
+      toggle.textContent = "☀️";
     }
     toggle.addEventListener("click", () => {
       body.classList.toggle("light");
       const isLight = body.classList.contains("light");
-      toggle.textContent = isLight ?😎" :🌛";
+      toggle.textContent = isLight ? "☀️" : "🌛";
       localStorage.setItem("theme", isLight ? "light" : "dark");
     });
 
@@ -235,7 +270,7 @@
         ctx.fillText(`Game Over: ${Math.floor(score)}`, GAME_WIDTH/2, GAME_HEIGHT/2);
         ctx.fillStyle = "white";
         ctx.font = "22px Comic Sans MS";
-        ctx.fillText("Tap / w to restart", GAME_WIDTH/2, GAME_HEIGHT/2 + 48);
+        ctx.fillText("Tap / W to restart", GAME_WIDTH/2, GAME_HEIGHT/2 + 48);
         ctx.textAlign = "left";
       }
     }
@@ -269,8 +304,8 @@
     }
 
     document.addEventListener("keydown", e => {
-      if (!gameOver && [ "ArrowUp", "w"].includes(e.key)) bird.velocityY = -6;
-      else if (gameOver && e.key === "w") resetGame();
+      if (!gameOver && ["ArrowUp", "w", "W"].includes(e.key)) bird.velocityY = -6;
+      else if (gameOver && ["w", "W"].includes(e.key)) resetGame();
     });
 
     canvas.addEventListener("touchstart", () => {
