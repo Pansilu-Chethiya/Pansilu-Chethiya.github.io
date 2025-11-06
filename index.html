@@ -2,414 +2,324 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flappy Bird Clone — Pansilu Chethiya</title>
-  <style>
+  <title>Pansilu Chethiya | 😊</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <style> 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg: #0d1117;
+      --card: #161b22;
+      --text: #f0f6fc;
+      --muted: #8b949e;
+      --accent: #00aaff;
+      --transition: 0.3s ease;
+    }
+
+    body.light {
+      --bg: #f6f8fa;
+      --card: #ffffff;
+      --text: #1b1f23;
+      --muted: #4a5568;
+      --accent: #0077ff;
+    }
+
     body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #0b0b0b;
-      color: #f4f4f4;
-      text-align: center;
+      font-family: "Poppins", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       overflow-x: hidden;
+      transition: background var(--transition), color var(--transition);
     }
 
     header {
-      padding: 20px 0;
-      background: linear-gradient(90deg, #111, #222);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1100px;
+      padding: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     header h1 {
-      margin: 0;
-      font-size: 2rem;
+      color: var(--accent);
+      font-size: 1.8rem;
     }
 
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 20px;
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 1rem;
+      margin-left: 1rem;
+    }
+
+    nav a:hover { color: var(--accent); }
+
+    .theme-toggle {
+      background: var(--card);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 1.5rem;
+      max-width: 800px;
+    }
+
+    .hero h2 {
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
+    .hero button {
+      padding: 0.8rem 2rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .hero button:hover {
+      background: #0088cc;
+      transform: translateY(-3px);
+    }
+
+    .game-section {
+      text-align: center;
+      padding: 3rem 1rem;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .game-section h2 {
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+    }
+
+    .game-wrapper {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      overflow: hidden;
     }
 
     canvas {
-      display: block;
-      margin: 20px auto;
+      border: 3px solid var(--accent);
+      border-radius: 12px;
       background: #000;
-      border-radius: 10px;
-      width: 100%;
-      max-width: 360px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      max-width: 100%;
       height: auto;
     }
 
-    a.button {
+    .contact {
+      text-align: center;
+      padding: 4rem 1.5rem;
+    }
+
+    .contact h2 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .contact p {
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .contact a {
       display: inline-block;
-      background: #00bfff;
+      background: var(--accent);
       color: white;
+      padding: 0.8rem 1.6rem;
+      border-radius: 8px;
       text-decoration: none;
-      font-weight: bold;
-      padding: 12px 25px;
-      border-radius: 30px;
-      margin-top: 10px;
-      transition: 0.3s;
+      transition: var(--transition);
     }
 
-    a.button:hover {
-      background: #00a3cc;
-    }
-
-    pre {
-      text-align: left;
-      background: #1e1e1e;
-      color: #d4d4d4;
-      padding: 20px;
-      border-radius: 10px;
-      overflow-x: auto;
-      font-family: Consolas, monospace;
-      font-size: 14px;
-      margin-top: 30px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
-    }
-
-    code {
-      white-space: pre-wrap;
-      word-wrap: break-word;
+    .contact a:hover {
+      background: #0088cc;
     }
 
     footer {
-      margin-top: 40px;
-      padding: 20px;
-      background: #111;
-      font-size: 14px;
-    }
-
-    footer a {
-      color: #00bfff;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      padding: 1rem;
+      width: 100%;
     }
   </style>
 </head>
+
 <body>
   <header>
-    <h1>🐤 Flappy Bird Clone (The Wild Vihanga)</h1>
-    <p>by Pansilu Chethiya</p>
+    <h1>Pansilu Chethiya</h1>
+    <nav>
+      <a href="#game">Game</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle">🌛</button>
   </header>
 
-  <main>
+  <section class="hero">
+    <h2>Flappy Bird Clone (Also known as the wild Vihanga) 🐤</h2>
+    <p>A sleek, responsive recreation of Vihanga Bird built with HTML and JavaScript (almost). Works beautifully on both desktop and mobile — tap or press W to flap!</p>
+    <button onclick="document.getElementById('game').scrollIntoView({behavior:'smooth'})">Play Now (or else)</button>
+  </section>
+
+  <section id="game" class="game-section">
     <h2>🎮 Play the Game</h2>
-    <p>Tap the screen or press <b>W</b> / <b>Space</b> to flap! Works on both desktop and mobile.</p>
+    <div class="game-wrapper">
+      <canvas id="gameCanvas" width="400" height="650"></canvas>
+    </div>
+  </section>
 
-    <canvas id="gameCanvas" width="360" height="640"></canvas>
+  <section id="contact" class="contact">
+    <h2>Let's Connect</h2>
+    <p>Have feedback? Get in touch!</p>
+    <a href="mailto:pansiluchethiya2012@outlook.com">📧 Email Me — also on Discord: pansilululu_96243</a>
+  </section>
 
-    <a href="#" class="button" onclick="startGame()">Play Now (or else)</a>
+  <footer>© 2025 Pansilu Chethiya</footer>
 
-    <h2>💻 The Python Version</h2>
-    <p>This is the original Python version built with <b>Pygame</b> before being ported to JavaScript.</p>
-
-    <pre><code class="language-python">
-      import pygame
-from sys import exit
-import random
-
-
-# game variables
-GAME_WIDTH = 360
-GAME_HEIGHT = 640
-
-# bird class
-bird_x = GAME_WIDTH / 8
-bird_y = GAME_HEIGHT / 2
-bird_width = 34
-bird_height = 24
-
-
-class Bird(pygame.Rect):
-    def __init__(self, img):
-        super().__init__(bird_x, bird_y, bird_width, bird_height)
-        self.image = img
-
-
-# pipe class
-pipe_x = GAME_WIDTH
-pipe_y = 0
-pipe_width = 64
-pipe_height = 512
-
-
-class Pipe(pygame.Rect):
-    def __init__(self, x, y, img):
-        super().__init__(x, y, pipe_width, pipe_height)
-        self.image = img
-        self.passed = False
-
-
-# initialize pygame and window before loading assets (safer across platforms)
-pygame.init()
-
-window = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
-pygame.display.set_caption("Flappy Bird")
-
-clock = pygame.time.Clock()
-
-create_pipes_timer = pygame.USEREVENT + 0
-pygame.time.set_timer(create_pipes_timer, 1500)  # every 1.5 seconds
-
-
-# game images
-background_image = pygame.image.load("assets/flappybirdbg.png")
-
-bird_image = pygame.image.load("assets/flappybird.png")
-bird_image = pygame.transform.scale(bird_image, (bird_width, bird_height))
-
-top_pipe_image = pygame.image.load("assets/toppipe.png")
-top_pipe_image = pygame.transform.scale(
-    top_pipe_image, (pipe_width, pipe_height))
-
-bottom_pipe_image = pygame.image.load("assets/bottompipe.png")
-bottom_pipe_image = pygame.transform.scale(
-    bottom_pipe_image, (pipe_width, pipe_height))
-
-
-# game logic
-
-bird = Bird(bird_image)
-pipes = []
-velocity_x = -2
-velocity_y = 0
-gravity = 0.4
-score = 0
-game_over = False
-
-
-def draw():
-    window.blit(background_image, (0, 0))
-    window.blit(bird.image, bird)
-
-    for pipe in pipes:
-        window.blit(pipe.image, pipe)
-
-    text_str = str(int(score))
-    text_font = pygame.font.SysFont("Comic Sans MS", 40)
-    text_render = text_font.render(text_str, True, (255, 255, 255))
-    window.blit(text_render, (5, 0))
-
-    if game_over:
-        go_font = pygame.font.SysFont("Comic Sans MS", 50)
-        go_text = go_font.render(f"Game Over: {int(score)}", True, (255, 0, 0))
-        go_rect = go_text.get_rect(center=(GAME_WIDTH // 2, GAME_HEIGHT // 2))
-        window.blit(go_text, go_rect)
-
-        sub_font = pygame.font.SysFont("Comic Sans MS", 22)
-        sub_text = sub_font.render(
-            "Press Space to restart or Q to close", True, (255, 255, 255))
-        sub_rect = sub_text.get_rect(
-            center=(GAME_WIDTH // 2, GAME_HEIGHT // 2 + 48))
-        window.blit(sub_text, sub_rect)
-
-
-def move():
-    global velocity_y, score, game_over
-    velocity_y += gravity
-    bird.y += velocity_y
-    bird.y = max(bird.y, 0)
-
-    if bird.y > GAME_HEIGHT:
-        game_over = True
-        return
-
-    for pipe in pipes:
-        pipe.x += velocity_x
-
-        if not pipe.passed and bird.x > pipe.x + pipe.width:
-            score += 0.5
-            pipe.passed = True
-
-        if bird.colliderect(pipe):
-            game_over = True
-            return
-
-    while len(pipes) > 0 and pipes[0].x < -pipe_width:
-        pipes.pop(0)
-
-
-def create_pipe():
-    random_pipe_y = pipe_y - pipe_height/4 - random.random()*(pipe_height/2)
-    opening_space = GAME_HEIGHT/4
-
-    top_pipe = Pipe(pipe_x, pipe_y, top_pipe_image)
-    top_pipe.y = random_pipe_y
-    pipes.append(top_pipe)
-
-    bottom_pipe = Pipe(pipe_x, pipe_y, bottom_pipe_image)
-    bottom_pipe.y = top_pipe.y + pipe_height + opening_space
-    pipes.append(bottom_pipe)
-    print(len(pipes))
-
-
-def reset_game():
-    global pipes, velocity_y, score, game_over
-    pipes = []
-    velocity_y = 0
-    score = 0
-    game_over = False
-    bird.x = bird_x
-    bird.y = bird_y
-
-
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit()
-
-        if event.type == create_pipes_timer and not game_over:
-            create_pipe()
-
-        if event.type == pygame.KEYDOWN:
-            # jump when playing
-            if not game_over and event.key in (pygame.K_SPACE, pygame.K_UP, pygame.K_w):
-                velocity_y = -6
-
-            # restart or quit when game over
-            if game_over:
-                if event.key == pygame.K_SPACE:
-                    reset_game()
-                if event.key == pygame.K_q:
-                    pygame.quit()
-                    exit()
-
-    # update game state only when not game over
-    if not game_over:
-        move()
-
-    # always draw/update so the window remains responsive and shows game over
-    draw()
-    pygame.display.update()
-    clock.tick(60)  # fps
-
-    </code></pre>
-
-    <h2>📬 Contact</h2>
-    <p>
-      Have feedback? Reach out anytime!<br><br>
-      <a href="mailto:pansiluchethiya2012@outlook.com">📧 Email Me</a> — also on Discord:
-      <b>pansilululu_96243</b>
-    </p>
-  </main>
-
-  <footer>
-    © 2025 Pansilu Chethiya. All rights reserved.
-  </footer>
-
-  <!-- Flappy Bird JS game logic -->
   <script>
+    // === THEME TOGGLE ===
+    const toggle = document.getElementById("themeToggle");
+    const body = document.body;
+    if (localStorage.getItem("theme") === "light") {
+      body.classList.add("light");
+      toggle.textContent = "☀️";
+    }
+    toggle.addEventListener("click", () => {
+      body.classList.toggle("light");
+      const isLight = body.classList.contains("light");
+      toggle.textContent = isLight ? "☀️" : "🌛";
+      localStorage.setItem("theme", isLight ? "light" : "dark");
+    });
+
+    // === FLAPPY BIRD GAME ===
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
 
-    let birdY = canvas.height / 2;
-    let velocity = 0;
-    let gravity = 0.4;
-    let flap = -6;
-    let pipes = [];
-    let pipeGap = 140;
-    let pipeWidth = 60;
-    let frame = 0;
-    let score = 0;
-    let gameOver = false;
-    let started = false;
+    function resizeCanvas() {
+      const scale = Math.min(window.innerWidth / 400, 1);
+      canvas.style.width = 400 * scale + "px";
+      canvas.style.height = 650 * scale + "px";
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
 
-    function startGame() {
-      started = true;
-      gameOver = false;
-      pipes = [];
-      birdY = canvas.height / 2;
-      velocity = 0;
-      score = 0;
+    const GAME_WIDTH = 400, GAME_HEIGHT = 650;
+    const birdWidth = 34, birdHeight = 24, pipeWidth = 64, pipeHeight = 512;
+    let bird = { x: GAME_WIDTH/8, y: GAME_HEIGHT/2, width: birdWidth, height: birdHeight, velocityY: 0, image: new Image() };
+    let pipes = [];
+    let gravity = 0.4, velocityX = -2, score = 0, gameOver = false;
+
+    const background = new Image(), topPipeImg = new Image(), bottomPipeImg = new Image();
+    background.src = "flappybirdbg.png";
+    bird.image.src = "flappybird.png";
+    topPipeImg.src = "toppipe.png";
+    bottomPipeImg.src = "bottompipe.png";
+
+    function draw() {
+      ctx.drawImage(background, 0, 0, GAME_WIDTH, GAME_HEIGHT);
+      ctx.drawImage(bird.image, bird.x, bird.y, bird.width, bird.height);
+      for (let pipe of pipes) ctx.drawImage(pipe.image, pipe.x, pipe.y, pipeWidth, pipeHeight);
+      ctx.fillStyle = "white";
+      ctx.font = "40px Comic Sans MS";
+      ctx.fillText(Math.floor(score), 5, 40);
+      if (gameOver) {
+        ctx.fillStyle = "red";
+        ctx.font = "50px Comic Sans MS";
+        ctx.textAlign = "center";
+        ctx.fillText(`Game Over: ${Math.floor(score)}`, GAME_WIDTH/2, GAME_HEIGHT/2);
+        ctx.fillStyle = "white";
+        ctx.font = "22px Comic Sans MS";
+        ctx.fillText("Tap / W to restart", GAME_WIDTH/2, GAME_HEIGHT/2 + 48);
+        ctx.textAlign = "left";
+      }
+    }
+
+    function move() {
+      bird.velocityY += gravity;
+      bird.y += bird.velocityY;
+      bird.y = Math.max(bird.y, 0);
+      if (bird.y > GAME_HEIGHT) gameOver = true;
+      for (let pipe of pipes) {
+        pipe.x += velocityX;
+        if (!pipe.passed && bird.x > pipe.x + pipeWidth) { score += 0.5; pipe.passed = true; }
+        if (bird.x < pipe.x + pipeWidth && bird.x + bird.width > pipe.x &&
+            bird.y < pipe.y + pipeHeight && bird.y + bird.height > pipe.y) {
+          gameOver = true; return;
+        }
+      }
+      pipes = pipes.filter(p => p.x > -pipeWidth);
     }
 
     function createPipe() {
-      const topHeight = Math.random() * (canvas.height / 2);
-      pipes.push({
-        x: canvas.width,
-        top: topHeight,
-        bottom: topHeight + pipeGap
-      });
+      const randomY = -pipeHeight/4 - Math.random()*(pipeHeight/2);
+      const gap = GAME_HEIGHT/4;
+      pipes.push({ x: GAME_WIDTH, y: randomY, image: topPipeImg, passed: false });
+      pipes.push({ x: GAME_WIDTH, y: randomY + pipeHeight + gap, image: bottomPipeImg, passed: false });
     }
 
-    function draw() {
-      ctx.fillStyle = "#000";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = "yellow";
-      ctx.beginPath();
-      ctx.arc(80, birdY, 12, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.fillStyle = "green";
-      pipes.forEach(p => {
-        ctx.fillRect(p.x, 0, pipeWidth, p.top);
-        ctx.fillRect(p.x, p.bottom, pipeWidth, canvas.height - p.bottom);
-      });
-
-      ctx.fillStyle = "#fff";
-      ctx.font = "28px Poppins";
-      ctx.fillText(score, 10, 40);
-
-      if (gameOver) {
-        ctx.fillStyle = "red";
-        ctx.font = "40px Poppins";
-        ctx.fillText("Game Over", 60, canvas.height / 2);
-      }
+    function resetGame() {
+      bird.x = GAME_WIDTH/8; bird.y = GAME_HEIGHT/2; bird.velocityY = 0;
+      pipes = []; score = 0; gameOver = false;
     }
 
-    function update() {
-      if (!started || gameOver) return;
+    document.addEventListener("keydown", e => {
+      if (!gameOver && ["ArrowUp", "w", "W"].includes(e.key)) bird.velocityY = -6;
+      else if (gameOver && ["w", "W"].includes(e.key)) resetGame();
+    });
 
-      frame++;
-      velocity += gravity;
-      birdY += velocity;
+    canvas.addEventListener("touchstart", () => {
+      if (!gameOver) bird.velocityY = -6;
+      else resetGame();
+    });
 
-      if (frame % 100 === 0) createPipe();
-
-      pipes.forEach(p => {
-        p.x -= 2;
-        if (p.x + pipeWidth < 0) pipes.shift();
-
-        if (80 > p.x && 80 < p.x + pipeWidth) {
-          if (birdY - 12 < p.top || birdY + 12 > p.bottom) {
-            gameOver = true;
-          }
-        }
-
-        if (p.x + pipeWidth === 80) score++;
-      });
-
-      if (birdY + 12 > canvas.height) {
-        gameOver = true;
-      }
-    }
+    setInterval(() => { if (!gameOver) createPipe(); }, 1500);
 
     function loop() {
-      update();
+      if (!gameOver) move();
       draw();
       requestAnimationFrame(loop);
     }
-
-    window.addEventListener("keydown", e => {
-      if (["w", "W", " "].includes(e.key)) {
-        if (!started) startGame();
-        if (!gameOver) velocity = flap;
-      }
-    });
-
-    canvas.addEventListener("click", () => {
-      if (!started) startGame();
-      if (!gameOver) velocity = flap;
-    });
-
     loop();
   </script>
 </body>
