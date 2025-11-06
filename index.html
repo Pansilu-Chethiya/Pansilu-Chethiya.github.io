@@ -331,7 +331,7 @@
     }
 
     document.addEventListener("keydown", e => {
-      if (!gameOver && ["ArrowUp", "w", "W"].includes(e.key)) bird.velocityY = -6;
+      if (!gameOver && ["RightClick","ArrowUp", "w", "W"].includes(e.key)) bird.velocityY = -6;
       else if (gameOver && ["w", "W"].includes(e.key)) resetGame();
     });
 
