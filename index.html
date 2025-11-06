@@ -214,187 +214,187 @@
     <p>Have feedback? Get in touch!</p>
     <a href="mailto:pansiluchethiya2012@outlook.com">📧 Email Me — also on Discord: pansilululu_96243</a>
 
-    <p>This is the python code not sharing the javascript one 😶:
+    <p>This is the python code not sharing the javascript one 😶:<br>
     
-      import pygame
-from sys import exit
-import random
+import pygame<br>
+from sys import exit<br>
+import random<br><br>
 
 
-# game variables
-GAME_WIDTH = 360
-GAME_HEIGHT = 640
+# game variables<br>
+GAME_WIDTH = 360<br>
+GAME_HEIGHT = 640<br><br>
 
-# bird class
-bird_x = GAME_WIDTH / 8
-bird_y = GAME_HEIGHT / 2
-bird_width = 34
-bird_height = 24
-
-
-class Bird(pygame.Rect):
-    def __init__(self, img):
-        super().__init__(bird_x, bird_y, bird_width, bird_height)
-        self.image = img
+# bird class<br>
+bird_x = GAME_WIDTH / 8<br>
+bird_y = GAME_HEIGHT / 2<br>
+bird_width = 34<br>
+bird_height = 24<br><br>
 
 
-# pipe class
-pipe_x = GAME_WIDTH
-pipe_y = 0
-pipe_width = 64
-pipe_height = 512
+class Bird(pygame.Rect):<br>
+    def __init__(self, img):<br>
+        super().__init__(bird_x, bird_y, bird_width, bird_height)<br>
+        self.image = img<br><br>
 
 
-class Pipe(pygame.Rect):
-    def __init__(self, x, y, img):
-        super().__init__(x, y, pipe_width, pipe_height)
-        self.image = img
-        self.passed = False
+# pipe class<br>
+pipe_x = GAME_WIDTH<br>
+pipe_y = 0<br>
+pipe_width = 64<br>
+pipe_height = 512<br><br><br>
+
+class Pipe(pygame.Rect):<br>
+    def __init__(self, x, y, img):<br>
+        super().__init__(x, y, pipe_width, pipe_height)<br>
+        self.image = img<br>
+        self.passed = False<br><br>
 
 
-# initialize pygame and window before loading assets (safer across platforms)
-pygame.init()
+# initialize pygame and window before loading assets (safer across platforms)<br>
+pygame.init()<br><br>
 
-window = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
-pygame.display.set_caption("Flappy Bird")
+window = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))<br> 
+pygame.display.set_caption("Flappy Bird")<br><br>
 
-clock = pygame.time.Clock()
+clock = pygame.time.Clock()<br><br>
 
-create_pipes_timer = pygame.USEREVENT + 0
-pygame.time.set_timer(create_pipes_timer, 1500)  # every 1.5 seconds
-
-
-# game images
-background_image = pygame.image.load("flappybirdbg.png")
-
-bird_image = pygame.image.load("flappybird.png")
-bird_image = pygame.transform.scale(bird_image, (bird_width, bird_height))
-
-top_pipe_image = pygame.image.load("toppipe.png")
-top_pipe_image = pygame.transform.scale(
-    top_pipe_image, (pipe_width, pipe_height))
-
-bottom_pipe_image = pygame.image.load("bottompipe.png")
-bottom_pipe_image = pygame.transform.scale(
-    bottom_pipe_image, (pipe_width, pipe_height))
+create_pipes_timer = pygame.USEREVENT + 0<br>
+pygame.time.set_timer(create_pipes_timer, 1500)  # every 1.5 seconds<br><br>
 
 
-# game logic
+# game images<br>
+#use your own<br>
+background_image = pygame.image.load("flappybirdbg.png")<br><br>
 
-bird = Bird(bird_image)
-pipes = []
-velocity_x = -2
-velocity_y = 0
-gravity = 0.4
-score = 0
-game_over = False
+bird_image = pygame.image.load("flappybird.png")<br>
+bird_image = pygame.transform.scale(bird_image, (bird_width, bird_height))<br><br>
 
+top_pipe_image = pygame.image.load("toppipe.png")<br>
+top_pipe_image = pygame.transform.scale(<br>
+    top_pipe_image, (pipe_width, pipe_height))<br><br>
 
-def draw():
-    window.blit(background_image, (0, 0))
-    window.blit(bird.image, bird)
-
-    for pipe in pipes:
-        window.blit(pipe.image, pipe)
-
-    text_str = str(int(score))
-    text_font = pygame.font.SysFont("Comic Sans MS", 40)
-    text_render = text_font.render(text_str, True, (255, 255, 255))
-    window.blit(text_render, (5, 0))
-
-    if game_over:
-        go_font = pygame.font.SysFont("Comic Sans MS", 50)
-        go_text = go_font.render(f"Game Over: {int(score)}", True, (255, 0, 0))
-        go_rect = go_text.get_rect(center=(GAME_WIDTH // 2, GAME_HEIGHT // 2))
-        window.blit(go_text, go_rect)
-
-        sub_font = pygame.font.SysFont("Comic Sans MS", 22)
-        sub_text = sub_font.render(
-            "Press Space to restart or Q to close", True, (255, 255, 255))
-        sub_rect = sub_text.get_rect(
-            center=(GAME_WIDTH // 2, GAME_HEIGHT // 2 + 48))
-        window.blit(sub_text, sub_rect)
+bottom_pipe_image = pygame.image.load("bottompipe.png")<br>
+bottom_pipe_image = pygame.transform.scale(<br>
+    bottom_pipe_image, (pipe_width, pipe_height))<br><br>
 
 
-def move():
-    global velocity_y, score, game_over
-    velocity_y += gravity
-    bird.y += velocity_y
-    bird.y = max(bird.y, 0)
+# game logic<br><br>
 
-    if bird.y > GAME_HEIGHT:
-        game_over = True
-        return
-
-    for pipe in pipes:
-        pipe.x += velocity_x
-
-        if not pipe.passed and bird.x > pipe.x + pipe.width:
-            score += 0.5
-            pipe.passed = True
-
-        if bird.colliderect(pipe):
-            game_over = True
-            return
-
-    while len(pipes) > 0 and pipes[0].x < -pipe_width:
-        pipes.pop(0)
+bird = Bird(bird_image)<br>
+pipes = []<br>
+velocity_x = -2<br>
+velocity_y = 0<br>
+gravity = 0.4<br>
+score = 0<br>
+game_over = False<br><br>
 
 
-def create_pipe():
-    random_pipe_y = pipe_y - pipe_height/4 - random.random()*(pipe_height/2)
-    opening_space = GAME_HEIGHT/4
+def draw():<br>
+    window.blit(background_image, (0, 0))<br>
+    window.blit(bird.image, bird)<br><br>
 
-    top_pipe = Pipe(pipe_x, pipe_y, top_pipe_image)
-    top_pipe.y = random_pipe_y
-    pipes.append(top_pipe)
+    for pipe in pipes:<br>
+        window.blit(pipe.image, pipe)<br><br>
 
-    bottom_pipe = Pipe(pipe_x, pipe_y, bottom_pipe_image)
-    bottom_pipe.y = top_pipe.y + pipe_height + opening_space
-    pipes.append(bottom_pipe)
-    print(len(pipes))
+    text_str = str(int(score))<br>
+    text_font = pygame.font.SysFont("Comic Sans MS", 40)<br>
+    text_render = text_font.render(text_str, True, (255, 255, 255))<br>
+    window.blit(text_render, (5, 0))<br><br>
+
+    if game_over:<br>
+        go_font = pygame.font.SysFont("Comic Sans MS", 50)<br>
+        go_text = go_font.render(f"Game Over: {int(score)}", True, (255, 0, 0))<br>
+        go_rect = go_text.get_rect(center=(GAME_WIDTH // 2, GAME_HEIGHT // 2))<br>
+        window.blit(go_text, go_rect)<br><br>
+
+        sub_font = pygame.font.SysFont("Comic Sans MS", 22)<br>
+        sub_text = sub_font.render(<br>
+            "Press Space to restart or Q to close", True, (255, 255, 255))<br>
+        sub_rect = sub_text.get_rect(<br>
+            center=(GAME_WIDTH // 2, GAME_HEIGHT // 2 + 48))<br>
+        window.blit(sub_text, sub_rect)<br><br>
 
 
-def reset_game():
-    global pipes, velocity_y, score, game_over
-    pipes = []
-    velocity_y = 0
-    score = 0
-    game_over = False
-    bird.x = bird_x
-    bird.y = bird_y
+def move():<br>
+    global velocity_y, score, game_over<br>
+    velocity_y += gravity<br>
+    bird.y += velocity_y<br>
+    bird.y = max(bird.y, 0)<br><br>
+
+    if bird.y > GAME_HEIGHT:<br>
+        game_over = True<br>
+        return<br><br>
+
+    for pipe in pipes:<br>
+        pipe.x += velocity_x<br><br>
+
+        if not pipe.passed and bird.x > pipe.x + pipe.width:<br>
+            score += 0.5<br>
+            pipe.passed = True<br><br>
+
+        if bird.colliderect(pipe):<br>
+            game_over = True<br>
+            return<br><br>
+
+    while len(pipes) > 0 and pipes[0].x < -pipe_width:<br>
+        pipes.pop(0)<br><br>
 
 
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit()
+def create_pipe():<br>
+    random_pipe_y = pipe_y - pipe_height/4 - random.random()*(pipe_height/2)<br>
+    opening_space = GAME_HEIGHT/4<br><br>
 
-        if event.type == create_pipes_timer and not game_over:
-            create_pipe()
+    top_pipe = Pipe(pipe_x, pipe_y, top_pipe_image)<br>
+    top_pipe.y = random_pipe_y<br>
+    pipes.append(top_pipe)<br><br>
 
-        if event.type == pygame.KEYDOWN:
-            # jump when playing
-            if not game_over and event.key in (pygame.K_SPACE, pygame.K_UP, pygame.K_w):
-                velocity_y = -6
+    bottom_pipe = Pipe(pipe_x, pipe_y, bottom_pipe_image)<br>
+    bottom_pipe.y = top_pipe.y + pipe_height + opening_space<br>
+    pipes.append(bottom_pipe)<br>
+    print(len(pipes))<br><br>
 
-            # restart or quit when game over
-            if game_over:
-                if event.key == pygame.K_SPACE:
-                    reset_game()
-                if event.key == pygame.K_q:
-                    pygame.quit()
-                    exit()
 
-    # update game state only when not game over
-    if not game_over:
-        move()
+def reset_game():<br>
+    global pipes, velocity_y, score, game_over<br>
+    pipes = []<br>
+    velocity_y = 0<br>
+    score = 0<br>
+    game_over = False<br>
+    bird.x = bird_x<br>
+    bird.y = bird_y<br><br>
 
-    # always draw/update so the window remains responsive and shows game over
-    draw()
-    pygame.display.update()
-    clock.tick(60)  # fps
+
+while True:<br>
+    for event in pygame.event.get():<br>
+        if event.type == pygame.QUIT:<br>
+            pygame.quit()<br>
+            exit()<br><br>
+
+        if event.type == create_pipes_timer and not game_over:<br>
+            create_pipe()<br><br>
+
+        if event.type == pygame.KEYDOWN:<br>
+            # jump when playing<br>
+            if not game_over and event.key in (pygame.K_SPACE, pygame.K_UP, pygame.K_w):<br>
+                velocity_y = -6<br><br>
+
+            # restart or quit when game over<br>
+            if game_over:<br>
+                if event.key == pygame.K_SPACE:<br>
+                    reset_game()<br>
+                if event.key == pygame.K_q:<br>
+                    pygame.quit()<br>
+                    exit()<br><br>
+
+    # update game state only when not game over<br>
+    if not game_over:<br>
+        move()<br><br>
+
+    # always draw/update so the window remains responsive and shows game over<br>
+    draw()<br>
+    pygame.display.update()<br>
+    clock.tick(60)  # fps<br><br>
 </p>
   </section>
 
